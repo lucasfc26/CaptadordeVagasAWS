@@ -1,0 +1,50 @@
+# Production overrides. Use together with the base compose file:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Secrets (POSTGRES_PASSWORD, JWT_SECRET, ...) must be provided via a real
+# `.env` file or the deployment platform's secret store — this file has no
+# insecure defaults for them, unlike the dev compose file.
+
+services:
+  postgres:
+    restart: always
+    ports: !reset [] # not reachable from outside the Docker network in production
+
+  redis:
+    restart: always
+    ports: !reset []
+
+  api:
+    restart: always
+    environment:
+      NODE_ENV: production
+    ports: !reset [] # only the reverse proxy is exposed publicly
+
+  worker:
+    restart: always
+    environment:
+      NODE_ENV: production
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
+    container_name: jobwatch-frontend
+    restart: always
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: jobwatch-proxy
+    restart: always
+    depends_on:
+      - api
+      - frontend
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./deploy/nginx/certs:/etc/nginx/certs:ro
+    ports:
+      - '80:80'
+      - '443:443'

@@ -1,0 +1,1164 @@
+Crie o frontend completo de uma aplicação web SaaS para monitoramento automático de vagas de emprego da Amazon Warehouse Jobs.
+
+O projeto deve ter uma aparência moderna, profissional e premium, seguindo um padrão semelhante aos meus projetos atuais de software, utilizando:
+
+- TypeScript
+- React
+- Vite
+- TailwindCSS
+- Componentização
+- Lucide Icons
+- TanStack Query para comunicação com API
+- React Router
+- Forms com validação
+- Arquitetura organizada e escalável
+- Design responsivo
+- Dark mode como aparência principal
+- Código limpo e fortemente tipado
+
+A aplicação deve estar preparada para consumir uma API REST desenvolvida separadamente em NestJS + Prisma ORM + PostgreSQL.
+
+IMPORTANTE:
+Não criar um frontend genérico de administração.
+O produto deve parecer um SaaS real, moderno e pronto para produção.
+
+==================================================
+1. OBJETIVO DO SISTEMA
+==================================================
+
+O sistema monitora páginas de vagas da Amazon Warehouse Jobs e identifica quando uma nova vaga aparece.
+
+O usuário poderá configurar buscas por:
+
+- localização
+- raio/distância
+- palavras-chave
+- tipos de vaga
+- cargos
+- frequência de monitoramento
+- canais de notificação
+
+Exemplo de busca:
+
+"Warehouse Associate / Fulfillment Center / Delivery Station"
+
+Localização:
+
+Richmond, CA
+
+Cidades próximas:
+
+- Richmond
+- San Pablo
+- Pinole
+- Hercules
+- El Cerrito
+
+O principal objetivo da interface é permitir que o usuário descubra rapidamente:
+
+1. quais vagas estão disponíveis agora;
+2. quais vagas são novas;
+3. quando uma vaga foi encontrada;
+4. quais vagas já foram visualizadas;
+5. quais buscas estão sendo monitoradas;
+6. se o monitoramento está funcionando;
+7. quais notificações foram enviadas.
+
+==================================================
+2. IDENTIDADE VISUAL
+==================================================
+
+Criar uma identidade visual própria para o sistema.
+
+Não copiar visualmente o site da Amazon.
+
+Usar uma estética:
+
+- dark
+- tecnológica
+- limpa
+- profissional
+- moderna
+- minimalista
+- com sensação de software de monitoramento
+
+Base visual:
+
+- fundo escuro em tons de slate/zinc
+- cards discretos
+- bordas sutis
+- alto contraste
+- bastante espaço negativo
+- tipografia moderna
+- ícones Lucide
+- pequenos elementos de destaque para status
+
+Usar TailwindCSS de forma consistente.
+
+Evitar:
+
+- excesso de gradientes
+- glassmorphism exagerado
+- sombras muito fortes
+- excesso de cores
+- interfaces cheias de cards desnecessários
+- aparência de template administrativo pronto
+
+A interface precisa parecer um produto desenvolvido profissionalmente.
+
+==================================================
+3. ESTRUTURA DA APLICAÇÃO
+==================================================
+
+Criar uma aplicação com:
+
+/login
+/register
+/forgot-password
+
+/dashboard
+
+/searches
+/searches/new
+/searches/:id
+
+/jobs
+/jobs/:id
+
+/notifications
+
+/settings
+
+A estrutura deve possuir:
+
+- layout público
+- layout autenticado
+- sidebar
+- header
+- área principal de conteúdo
+- breadcrumbs quando necessário
+- responsividade para desktop, tablet e mobile
+
+==================================================
+4. LOGIN
+==================================================
+
+Criar uma tela de login moderna.
+
+Elementos:
+
+- logo/nome do sistema
+- título
+- subtítulo
+- email
+- senha
+- lembrar sessão
+- botão "Entrar"
+- link "Esqueci minha senha"
+- link para cadastro
+
+Adicionar estados:
+
+- loading
+- erro de autenticação
+- sucesso
+- campos inválidos
+
+Criar também telas de:
+
+- cadastro
+- recuperação de senha
+
+Não exagerar no design.
+O foco deve ser simplicidade e boa experiência.
+
+==================================================
+5. DASHBOARD
+==================================================
+
+O dashboard é a principal tela do sistema.
+
+No topo:
+
+"Monitoramento de vagas"
+
+Mostrar uma mensagem contextual, por exemplo:
+
+"Seu monitoramento está ativo."
+
+Mostrar claramente o estado geral:
+
+● Monitoramento ativo
+
+ou
+
+● Monitoramento pausado
+
+Criar uma área de resumo com informações importantes:
+
+- Novas vagas
+- Vagas disponíveis
+- Buscas ativas
+- Última verificação
+- Próxima verificação
+
+Exemplo:
+
+NOVAS VAGAS
+3
+
+DISPONÍVEIS
+12
+
+BUSCAS ATIVAS
+2
+
+ÚLTIMA VERIFICAÇÃO
+há 4 min
+
+==================================================
+6. DESTAQUE PARA NOVAS VAGAS
+==================================================
+
+Esta é uma das partes mais importantes da interface.
+
+Criar uma seção:
+
+"Novas vagas"
+
+Cada nova vaga deve aparecer em um card/list item destacado.
+
+Exemplo:
+
+Warehouse Associate
+
+Richmond, CA
+
+Fulfillment Center
+
+Encontrada há 2 minutos
+
+NOVO
+
+Botões:
+
+"Ver vaga"
+
+"Marcar como visualizada"
+
+O destaque de "NOVO" deve ser visualmente evidente, mas sem poluir a interface.
+
+Quando não houver novas vagas:
+
+"Estamos monitorando as vagas para você."
+
+"Quando uma nova vaga aparecer, ela será exibida aqui."
+
+==================================================
+7. LISTA DE VAGAS
+==================================================
+
+Criar a página /jobs.
+
+Permitir visualizar todas as vagas encontradas.
+
+Filtros:
+
+- localização
+- cargo
+- tipo
+- status
+- somente novas
+- data de descoberta
+
+Busca textual:
+
+"Pesquisar vagas..."
+
+Cada vaga deve apresentar:
+
+- cargo
+- localização
+- tipo de vaga
+- centro/local de trabalho
+- data em que foi encontrada
+- status
+- botão para visualizar
+
+Exemplo:
+
+----------------------------------------
+
+Warehouse Associate
+
+Richmond, CA
+
+Fulfillment Center
+
+Found 4 minutes ago
+
+[ NEW ]
+
+[View job]
+
+----------------------------------------
+
+Adicionar ordenação:
+
+- Mais recentes
+- Mais antigas
+- Localização
+- Cargo
+
+==================================================
+8. DETALHES DA VAGA
+==================================================
+
+Criar uma página detalhada para a vaga.
+
+Mostrar:
+
+- título
+- localização
+- tipo de vaga
+- centro
+- data de descoberta
+- status
+- descrição
+- requisitos
+- informações disponíveis da vaga
+- link para candidatura
+
+Criar CTA extremamente claro:
+
+"Candidate-se agora"
+
+O botão deve abrir a página oficial da vaga em uma nova aba.
+
+Adicionar também:
+
+"Marcar como visualizada"
+
+"Remover dos favoritos"
+
+==================================================
+9. BUSCAS / MONITORAMENTOS
+==================================================
+
+Criar /searches.
+
+O usuário deve conseguir visualizar todas as buscas configuradas.
+
+Cada busca deve mostrar:
+
+- nome da busca
+- localização
+- palavras-chave
+- distância
+- frequência
+- status
+- última verificação
+- quantidade de vagas encontradas
+
+Exemplo:
+
+Amazon Warehouse — Richmond
+
+Richmond, CA
+
+Warehouse Associate
+
+Raio: 25 miles
+
+● Monitoramento ativo
+
+Última verificação: 3 min atrás
+
+[Ver detalhes]
+
+==================================================
+10. CRIAR NOVA BUSCA
+==================================================
+
+Criar um fluxo simples para criação de monitoramento.
+
+Título:
+
+"Nova busca"
+
+Campos:
+
+Nome da busca
+
+Localização
+
+Raio de busca
+
+Palavras-chave
+
+Tipos de vaga
+
+Cidades adicionais
+
+Frequência de monitoramento
+
+Canais de notificação
+
+Exemplo:
+
+Nome:
+
+Amazon Warehouse — Richmond
+
+Localização:
+
+Richmond, CA
+
+Raio:
+
+25 miles
+
+Palavras-chave:
+
+Warehouse Associate
+Fulfillment Center
+Delivery Station
+
+Cidades:
+
+Richmond
+San Pablo
+Pinole
+Hercules
+El Cerrito
+
+Frequência:
+
+1 hora
+
+Notificações:
+
+Email
+Push
+
+Botão:
+
+"Ativar monitoramento"
+
+==================================================
+11. DETALHES DO MONITORAMENTO
+==================================================
+
+Criar /searches/:id.
+
+Mostrar:
+
+- nome
+- status
+- configurações
+- vagas encontradas
+- última execução
+- próxima execução
+- histórico de verificações
+
+Status:
+
+ACTIVE
+PAUSED
+ERROR
+
+Criar ações:
+
+- Pausar
+- Retomar
+- Editar
+- Excluir
+
+Adicionar confirmação antes de ações destrutivas.
+
+==================================================
+12. HISTÓRICO DE MONITORAMENTO
+==================================================
+
+Mostrar um pequeno histórico das execuções.
+
+Exemplo:
+
+✓ Verificação concluída
+Hoje, 21:40
+
+12 vagas encontradas
+0 novas vagas
+
+---
+
+✓ Verificação concluída
+Hoje, 20:40
+
+11 vagas encontradas
+1 nova vaga
+
+---
+
+⚠ Erro na verificação
+Hoje, 19:40
+
+Falha temporária ao consultar fonte
+
+Usar timeline ou lista compacta.
+
+==================================================
+13. NOTIFICAÇÕES
+==================================================
+
+Criar página /notifications.
+
+Mostrar histórico das notificações.
+
+Exemplo:
+
+NOVA VAGA ENCONTRADA
+
+Warehouse Associate
+Richmond, CA
+
+Email enviado
+
+2 minutos atrás
+
+Status:
+
+Sent
+
+Filtros:
+
+- Todas
+- Enviadas
+- Falhas
+- Não lidas
+
+==================================================
+14. CONFIGURAÇÕES
+==================================================
+
+Criar /settings.
+
+Seções:
+
+Perfil
+
+- nome
+- email
+
+Notificações
+
+- Email
+- Push
+- alerta para novas vagas
+- resumo periódico
+
+Monitoramento
+
+- frequência padrão
+- timezone
+
+Conta
+
+- alterar senha
+- excluir conta
+
+==================================================
+15. SISTEMA DE STATUS
+==================================================
+
+Criar componentes reutilizáveis para status.
+
+Exemplos:
+
+Active:
+● Active
+
+Paused:
+● Paused
+
+Error:
+● Error
+
+New:
+NEW
+
+Viewed:
+Viewed
+
+Sent:
+Sent
+
+Failed:
+Failed
+
+Os estados devem possuir diferenciação visual clara, mas sem utilizar cores exageradamente fortes.
+
+==================================================
+16. COMPONENTES
+==================================================
+
+Criar uma biblioteca interna de componentes reutilizáveis.
+
+Exemplo:
+
+components/
+  ui/
+    Button
+    Input
+    Select
+    Checkbox
+    Switch
+    Badge
+    Card
+    Modal
+    Dialog
+    Dropdown
+    Tooltip
+    Skeleton
+    EmptyState
+    Pagination
+
+  jobs/
+    JobCard
+    JobList
+    JobFilters
+    JobStatus
+    JobDetails
+
+  searches/
+    SearchCard
+    SearchForm
+    SearchStatus
+    SearchHistory
+
+  dashboard/
+    StatsCard
+    NewJobs
+    MonitoringStatus
+    RecentActivity
+
+  notifications/
+    NotificationItem
+
+Manter os componentes desacoplados.
+
+==================================================
+17. API
+==================================================
+
+Preparar o frontend para consumir uma API REST.
+
+Criar uma camada:
+
+src/
+  services/
+    api.ts
+    auth.service.ts
+    jobs.service.ts
+    searches.service.ts
+    notifications.service.ts
+    users.service.ts
+
+Utilizar Axios ou fetch com uma instância centralizada.
+
+Exemplo conceitual:
+
+GET /auth/me
+
+GET /jobs
+
+GET /jobs/:id
+
+GET /jobs/new
+
+PATCH /jobs/:id/viewed
+
+GET /searches
+
+POST /searches
+
+GET /searches/:id
+
+PATCH /searches/:id
+
+DELETE /searches/:id
+
+POST /searches/:id/pause
+
+POST /searches/:id/resume
+
+GET /searches/:id/history
+
+GET /notifications
+
+GET /dashboard
+
+Não implementar a API no frontend.
+Criar apenas a integração preparada.
+
+==================================================
+18. TANSTACK QUERY
+==================================================
+
+Utilizar TanStack Query para:
+
+- buscar vagas
+- buscar novas vagas
+- buscar monitoramentos
+- buscar notificações
+- invalidar cache
+- refetch
+- estados de loading
+- estados de erro
+
+O dashboard deve conseguir atualizar os dados sem reload completo.
+
+Criar hooks:
+
+useJobs()
+useNewJobs()
+useJob()
+useSearches()
+useSearch()
+useNotifications()
+useDashboard()
+
+==================================================
+19. ATUALIZAÇÃO AUTOMÁTICA
+==================================================
+
+Como o sistema monitora vagas automaticamente, o frontend deve estar preparado para receber atualizações.
+
+No dashboard:
+
+- atualizar automaticamente
+- mostrar "Última verificação"
+- mostrar "Próxima verificação"
+- destacar novas vagas
+
+Não criar polling agressivo no navegador.
+
+A frequência real do scraping/monitoramento pertence ao backend.
+
+O frontend apenas consulta o estado atual fornecido pela API.
+
+Se futuramente for implementado WebSocket/SSE, deixar a arquitetura preparada para isso.
+
+==================================================
+20. RESPONSIVIDADE
+==================================================
+
+Desktop:
+
+Sidebar fixa + conteúdo principal.
+
+Tablet:
+
+Sidebar reduzida.
+
+Mobile:
+
+Sidebar transformada em menu lateral/drawer.
+
+Cards devem funcionar perfeitamente em telas pequenas.
+
+Tabelas devem ser substituídas ou adaptadas para cards/listas no mobile.
+
+==================================================
+21. UX
+==================================================
+
+Priorizar UX extremamente simples.
+
+O usuário deve conseguir entender imediatamente:
+
+"O sistema está monitorando minhas vagas?"
+
+"Quando foi a última verificação?"
+
+"Existe uma vaga nova?"
+
+"Qual vaga apareceu?"
+
+"Como faço para me candidatar?"
+
+Criar feedback visual para todas as ações:
+
+- loading
+- sucesso
+- erro
+- confirmação
+- empty state
+
+Usar Toast para ações rápidas.
+
+Exemplos:
+
+"Monitoramento ativado"
+
+"Monitoramento pausado"
+
+"Vaga marcada como visualizada"
+
+"Configuração atualizada"
+
+==================================================
+22. ESTADOS VAZIOS
+==================================================
+
+Não deixar telas vazias.
+
+Exemplo dashboard sem vagas:
+
+"Nenhuma vaga nova"
+
+"Continuamos monitorando suas buscas. Você será avisado assim que uma nova vaga aparecer."
+
+Página de buscas sem monitoramentos:
+
+"Você ainda não possui nenhum monitoramento."
+
+[Criar primeira busca]
+
+Página de notificações vazia:
+
+"Nenhuma notificação ainda."
+
+==================================================
+23. LOADING / SKELETON
+==================================================
+
+Não utilizar apenas spinners.
+
+Criar Skeletons para:
+
+- cards
+- listas
+- dashboard
+- detalhes
+- tabelas
+
+A interface deve permanecer estável durante o carregamento.
+
+==================================================
+24. ERROR HANDLING
+==================================================
+
+Criar tratamento global de erros da API.
+
+Exibir mensagens amigáveis.
+
+Nunca mostrar:
+
+- stack trace
+- erro bruto do backend
+- informações internas
+- SQL
+- endpoints internos
+
+Exemplo:
+
+"Não foi possível carregar as vagas."
+
+[Tentar novamente]
+
+==================================================
+25. AUTENTICAÇÃO
+==================================================
+
+Preparar autenticação baseada em JWT.
+
+Criar:
+
+AuthContext ou solução equivalente.
+
+Controlar:
+
+- usuário autenticado
+- login
+- logout
+- sessão
+- proteção de rotas
+
+Rotas autenticadas não podem ser acessadas sem sessão.
+
+==================================================
+26. SEGURANÇA
+==================================================
+
+Não armazenar informações sensíveis desnecessariamente.
+
+Não colocar secrets no frontend.
+
+Usar:
+
+.env
+
+VITE_API_URL
+
+Nunca expor:
+
+- database credentials
+- API secrets
+- scraping credentials
+- JWT secret
+- chaves privadas
+
+==================================================
+27. DESIGN DO DASHBOARD
+==================================================
+
+O dashboard deve ser a tela mais refinada do sistema.
+
+Estrutura sugerida:
+
+Sidebar
+
+-----------------------------------
+Logo
+
+Dashboard
+Vagas
+Monitoramentos
+Notificações
+
+Configurações
+
+-----------------------------------
+
+Header
+
+"Good evening"
+
+Status:
+● Monitoring active
+
+-----------------------------------
+
+Stats
+
+[ 3 Novas vagas ]
+[ 12 Disponíveis ]
+[ 2 Monitoramentos ]
+[ 4 min Última verificação ]
+
+-----------------------------------
+
+Novas vagas
+
+[ Job Card ]
+[ Job Card ]
+[ Job Card ]
+
+-----------------------------------
+
+Monitoramentos ativos
+
+[ Search Card ]
+
+-----------------------------------
+
+Atividade recente
+
+[ Timeline ]
+
+Não precisa seguir exatamente essa estrutura.
+Use seu julgamento de UX para criar a melhor composição visual.
+
+==================================================
+28. DASHBOARD — PRIORIDADE VISUAL
+==================================================
+
+A hierarquia visual deve ser:
+
+1. NOVAS VAGAS
+2. STATUS DO MONITORAMENTO
+3. ÚLTIMA/PRÓXIMA VERIFICAÇÃO
+4. VAGAS DISPONÍVEIS
+5. MONITORAMENTOS
+6. HISTÓRICO
+
+O usuário não deve precisar navegar por várias telas para saber se apareceu uma vaga nova.
+
+==================================================
+29. DESIGN SYSTEM
+==================================================
+
+Criar tokens visuais consistentes usando Tailwind.
+
+Definir:
+
+- border radius
+- spacing
+- typography
+- shadows
+- backgrounds
+- borders
+- states
+- transitions
+
+Utilizar transições sutis.
+
+Exemplo:
+
+hover
+focus
+active
+disabled
+
+Evitar animações excessivas.
+
+==================================================
+30. ESTRUTURA DO CÓDIGO
+==================================================
+
+Organizar o projeto aproximadamente assim:
+
+src/
+  assets/
+  components/
+  layouts/
+  pages/
+  hooks/
+  services/
+  types/
+  utils/
+  lib/
+  routes/
+  context/
+  stores/
+
+Separar:
+
+UI
+business logic
+API
+types
+pages
+
+Evitar colocar lógica complexa dentro dos componentes visuais.
+
+==================================================
+31. TIPAGEM
+==================================================
+
+Criar interfaces/types para as entidades.
+
+Exemplo:
+
+User
+
+Job
+
+JobLocation
+
+Search
+
+SearchFilter
+
+MonitoringExecution
+
+Notification
+
+DashboardStats
+
+JobStatus
+
+SearchStatus
+
+NotificationStatus
+
+Não utilizar "any" sem necessidade.
+
+==================================================
+32. MOCK DATA
+==================================================
+
+Durante o desenvolvimento inicial, criar mocks realistas para demonstrar a interface.
+
+Exemplo de vagas:
+
+Warehouse Associate
+Richmond, CA
+
+Fulfillment Center
+San Pablo, CA
+
+Delivery Station Warehouse Associate
+Richmond, CA
+
+Quando a API estiver disponível, os mocks devem poder ser facilmente substituídos pela API real.
+
+==================================================
+33. ACESSIBILIDADE
+==================================================
+
+Implementar:
+
+- labels nos inputs
+- navegação por teclado
+- focus states
+- aria-label quando necessário
+- contraste adequado
+- botões semanticamente corretos
+
+==================================================
+34. PERFORMANCE
+==================================================
+
+Aplicar boas práticas:
+
+- lazy loading de páginas
+- code splitting
+- imagens otimizadas
+- evitar renders desnecessários
+- TanStack Query
+- componentes reutilizáveis
+- debounce na busca
+- paginação quando necessário
+
+==================================================
+35. RESULTADO FINAL
+==================================================
+
+O resultado deve parecer um produto SaaS real chamado provisoriamente:
+
+"JobWatch"
+
+Não precisa utilizar esse nome definitivamente; deixe o branding facilmente alterável.
+
+A aplicação deve transmitir:
+
+"Eu configurei minha busca e o sistema está trabalhando sozinho para encontrar a vaga para mim."
+
+O principal diferencial visual deve ser a sensação de monitoramento em tempo real.
+
+Não criar uma interface corporativa pesada.
+
+Criar algo que eu poderia apresentar para um cliente ou transformar posteriormente em um produto SaaS comercial.
+
+IMPORTANTE:
+
+Não começar criando todas as páginas superficialmente.
+
+Primeiro estabeleça:
+
+1. Design System
+2. Layout principal
+3. Sidebar
+4. Header
+5. Componentes base
+6. Dashboard
+7. Sistema de Job Cards
+8. Sistema de Search Cards
+
+Depois implemente as demais páginas mantendo exatamente o mesmo padrão visual.
+
+Todos os componentes devem ser realmente funcionais e conectados ao estado/mock data.
+
+O código precisa estar pronto para posteriormente conectar ao backend NestJS + Prisma + PostgreSQL através de API REST.

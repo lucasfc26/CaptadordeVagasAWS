@@ -1,0 +1,290 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum SearchStatus {
+  ACTIVE
+  PAUSED
+  ERROR
+}
+
+enum ExecutionStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  SEASONAL
+  TEMPORARY
+}
+
+enum NotificationChannel {
+  EMAIL
+  PUSH
+  SMS
+}
+
+enum NotificationType {
+  NEW_JOB
+  MONITORING_ERROR
+  MONITORING_PAUSED
+  SUMMARY
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  READ
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+// ---------------------------------------------------------------------------
+// User
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  timezone     String   @default("America/Los_Angeles")
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  settings      UserSettings?
+  searches      Search[]
+  notifications Notification[]
+  jobStates     JobUserState[]
+
+  @@map("users")
+}
+
+model UserSettings {
+  id                    String  @id @default(cuid())
+  userId                String  @unique
+  emailEnabled          Boolean @default(true)
+  pushEnabled           Boolean @default(false)
+  smsEnabled            Boolean @default(false)
+  newJobAlertEnabled    Boolean @default(true)
+  periodicSummaryEnabled Boolean @default(false)
+  defaultFrequencyMinutes Int   @default(60)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}
+
+// ---------------------------------------------------------------------------
+// Search / Monitoring configuration
+// ---------------------------------------------------------------------------
+
+model Search {
+  id               String       @id @default(cuid())
+  userId           String
+  name             String
+  status           SearchStatus @default(ACTIVE)
+  radiusMiles      Int          @default(25)
+  frequencyMinutes Int          @default(60)
+  notificationChannels NotificationChannel[] @default([EMAIL])
+  jobTypes         JobType[]    @default([])
+  lastCheckedAt    DateTime?
+  nextCheckAt      DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  keywords   SearchKeyword[]
+  locations  SearchLocation[]
+  jobSearches JobSearch[]
+  executions MonitoringExecution[]
+  notifications Notification[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([nextCheckAt])
+  @@map("searches")
+}
+
+model SearchKeyword {
+  id       String @id @default(cuid())
+  searchId String
+  value    String
+
+  search Search @relation(fields: [searchId], references: [id], onDelete: Cascade)
+
+  @@index([searchId])
+  @@map("search_keywords")
+}
+
+model SearchLocation {
+  id        String  @id @default(cuid())
+  searchId  String
+  city      String
+  state     String
+  country   String  @default("US")
+  latitude  Float?
+  longitude Float?
+  isPrimary Boolean @default(false)
+
+  search Search @relation(fields: [searchId], references: [id], onDelete: Cascade)
+
+  @@index([searchId])
+  @@map("search_locations")
+}
+
+// ---------------------------------------------------------------------------
+// Job
+// ---------------------------------------------------------------------------
+
+model Job {
+  id          String   @id @default(cuid())
+  externalId  String
+  source      String
+  title       String
+  company     String
+  location    String
+  city        String
+  state       String
+  country     String   @default("US")
+  url         String
+  jobType     JobType  @default(FULL_TIME)
+  description String?  @db.Text
+  requirements String[] @default([])
+  benefits    String[] @default([])
+  salary      String?
+  schedule    String?
+  firstSeenAt DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  jobSearches   JobSearch[]
+  jobUserStates JobUserState[]
+  notifications Notification[]
+
+  @@unique([source, externalId])
+  @@index([city])
+  @@index([state])
+  @@index([firstSeenAt])
+  @@index([isActive])
+  @@map("jobs")
+}
+
+model JobSearch {
+  id        String   @id @default(cuid())
+  jobId     String
+  searchId  String
+  createdAt DateTime @default(now())
+
+  job    Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  search Search @relation(fields: [searchId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, searchId])
+  @@index([searchId])
+  @@map("job_searches")
+}
+
+// Per-user interaction state for a job (viewed / applied). Kept out of Job
+// itself because the same job can be shared across multiple users' searches.
+model JobUserState {
+  id        String    @id @default(cuid())
+  jobId     String
+  userId    String
+  viewedAt  DateTime?
+  appliedAt DateTime?
+  favorite  Boolean   @default(false)
+
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, userId])
+  @@index([userId])
+  @@map("job_user_states")
+}
+
+// ---------------------------------------------------------------------------
+// Monitoring execution history
+// ---------------------------------------------------------------------------
+
+model MonitoringExecution {
+  id           String          @id @default(cuid())
+  searchId     String
+  startedAt    DateTime        @default(now())
+  finishedAt   DateTime?
+  status       ExecutionStatus @default(RUNNING)
+  jobsFound    Int             @default(0)
+  newJobs      Int             @default(0)
+  errorMessage String?
+  createdAt    DateTime        @default(now())
+
+  search Search @relation(fields: [searchId], references: [id], onDelete: Cascade)
+
+  @@index([searchId])
+  @@index([createdAt])
+  @@map("monitoring_executions")
+}
+
+// ---------------------------------------------------------------------------
+// Notifications
+// ---------------------------------------------------------------------------
+
+model Notification {
+  id        String             @id @default(cuid())
+  userId    String
+  jobId     String?
+  searchId  String?
+  type      NotificationType   @default(NEW_JOB)
+  title     String
+  message   String
+  channel   NotificationChannel @default(EMAIL)
+  status    NotificationStatus @default(PENDING)
+  createdAt DateTime           @default(now())
+  sentAt    DateTime?
+  readAt    DateTime?
+
+  user       User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job        Job?                   @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  search     Search?                @relation(fields: [searchId], references: [id], onDelete: SetNull)
+  deliveries NotificationDelivery[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model NotificationDelivery {
+  id             String              @id @default(cuid())
+  notificationId String
+  channel        NotificationChannel
+  status         DeliveryStatus      @default(PENDING)
+  attempts       Int                 @default(0)
+  sentAt         DateTime?
+  errorMessage   String?
+  createdAt      DateTime            @default(now())
+
+  notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@index([notificationId])
+  @@map("notification_deliveries")
+}
