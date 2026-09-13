@@ -102,10 +102,10 @@ export function SettingsPage() {
             label="WhatsApp"
             type="tel"
             mask="phone"
-            placeholder="(11) 99999-9999 ou +1 510..."
+            placeholder="+55 (85) 98714-9385"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
-            hint="Mesmo número do WhatsApp, com DDI. EUA: +1; Brasil: DDD + 9"
+            hint="Inclui o DDI +55. Ex.: +55 (85) 98714-9385"
           />
         </div>
         <div className="flex justify-end">

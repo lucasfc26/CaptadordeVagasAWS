@@ -16,7 +16,7 @@ export class RegisterDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: '11999999999' })
+  @ApiProperty({ example: '+5585987149385' })
   @Transform(({ value }) => (typeof value === 'string' ? normalizePhone(value) : value))
   @IsString()
   @Matches(PHONE_E164_REGEX, { message: 'Informe um telefone válido com DDD' })

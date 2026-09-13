@@ -11,7 +11,7 @@ export class UpdateProfileDto {
   @MaxLength(120)
   name?: string;
 
-  @ApiPropertyOptional({ example: '11999999999' })
+  @ApiPropertyOptional({ example: '+5585987149385' })
   @IsOptional()
   @Transform(({ value }) => (typeof value === 'string' ? normalizePhone(value) : value))
   @IsString()

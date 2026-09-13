@@ -5,6 +5,9 @@ describe('phone', () => {
     expect(normalizePhone('11999999999')).toBe('+5511999999999');
     expect(normalizePhone('(11) 99999-9999')).toBe('+5511999999999');
     expect(normalizePhone('+55 11 99999-9999')).toBe('+5511999999999');
+    expect(normalizePhone('+55 (85) 98714-9385')).toBe('+5585987149385');
+    expect(normalizePhone('85987149385')).toBe('+5585987149385');
+    expect(normalizePhone('+85987149385')).toBe('+5585987149385');
     expect(normalizePhone('5511999999999')).toBe('+5511999999999');
   });
 
@@ -27,5 +30,8 @@ describe('phone', () => {
   it('strips the plus for the WhatsApp recipient field', () => {
     expect(toWhatsappRecipient('+55 11 99999-9999')).toBe('5511999999999');
     expect(toWhatsappRecipient('+1 510 617 9624')).toBe('15106179624');
+    expect(toWhatsappRecipient('85987149385')).toBe('5585987149385');
+    expect(toWhatsappRecipient('+85987149385')).toBe('5585987149385');
+    expect(toWhatsappRecipient('+55 (85) 98714-9385')).toBe('5585987149385');
   });
 });

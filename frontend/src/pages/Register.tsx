@@ -64,7 +64,7 @@ export function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Input label="Nome" type="text" placeholder="Seu nome" icon={<Icon name="person" className="text-[16px]" />} error={errors.name?.message} {...register('name')} />
         <Input label="Email" type="text" placeholder="seu@email.com" mask="email" autoComplete="email" icon={<Icon name="mail" className="text-[16px]" />} error={errors.email?.message} {...register('email')} />
-        <Input label="WhatsApp" type="tel" placeholder="(11) 99999-9999" mask="phone" autoComplete="tel" icon={<Icon name="call" className="text-[16px]" />} error={errors.phone?.message} hint="Usado para notificações de novas vagas" {...register('phone')} />
+        <Input label="WhatsApp" type="tel" placeholder="+55 (85) 98714-9385" mask="phone" autoComplete="tel" icon={<Icon name="call" className="text-[16px]" />} error={errors.phone?.message} hint="DDI +55, DDD e o 9 do celular" {...register('phone')} />
         <Input label="Senha" type="password" placeholder="••••••••" icon={<Icon name="lock" className="text-[16px]" />} error={errors.password?.message} {...register('password')} />
         <Input label="Confirmar senha" type="password" placeholder="••••••••" icon={<Icon name="lock" className="text-[16px]" />} error={errors.confirmPassword?.message} {...register('confirmPassword')} />
         <Button type="submit" loading={loading} className="w-full">Criar conta</Button>

@@ -27,7 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
-            inputMode={inputMode ?? (mask === 'email' ? 'email' : mask === 'phone' ? 'numeric' : undefined)}
+            inputMode={inputMode ?? (mask === 'email' ? 'email' : mask === 'phone' ? 'tel' : undefined)}
             className={cn(
               'w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-space-md py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline/70 transition-colors',
               'focus:outline-none focus:border-secondary/60 focus:ring-2 focus:ring-secondary/25',

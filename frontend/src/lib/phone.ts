@@ -18,10 +18,13 @@ export function normalizePhone(input: string): string {
   if (!digits) {
     return trimmed;
   }
-  if (trimmed.startsWith('+')) {
+  if (digits.startsWith('55') && isBrazilianMobile11(digits.slice(2))) {
     return `+${digits}`;
   }
-  if (digits.startsWith('55') && digits.length >= 12) {
+  if (isBrazilianMobile11(digits)) {
+    return `+55${digits}`;
+  }
+  if (trimmed.startsWith('+')) {
     return `+${digits}`;
   }
   if (isNanpWithCountryCode(digits) && !isBrazilianMobile11(digits)) {

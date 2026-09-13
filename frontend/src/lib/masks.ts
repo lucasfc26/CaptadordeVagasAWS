@@ -7,7 +7,7 @@ function isBrazilianMobile11(digits: string): boolean {
 export function formatPhoneMask(input: string): string {
   let digits = input.replace(/\D/g, '');
   const looksUs =
-    input.trim().startsWith('+1') ||
+    /^\s*\+1\b/.test(input) ||
     (digits.startsWith('1') && digits.length >= 11 && !isBrazilianMobile11(digits.slice(0, 11)));
 
   if (looksUs) {
@@ -19,18 +19,18 @@ export function formatPhoneMask(input: string): string {
     return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
   }
 
-  if (digits.startsWith('55') && digits.length > 11) {
+  if (digits.startsWith('55')) {
     digits = digits.slice(2);
   }
   digits = digits.slice(0, 11);
 
-  if (!digits) return '';
-  if (digits.length <= 2) return `(${digits}`;
-  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (!digits) return '+55 ';
+  if (digits.length <= 2) return `+55 (${digits}`;
+  if (digits.length <= 7) return `+55 (${digits.slice(0, 2)}) ${digits.slice(2)}`;
   if (digits.length <= 10) {
-    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `+55 (${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
   }
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  return `+55 (${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
 }
 
 export function formatEmailMask(input: string): string {
