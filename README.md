@@ -99,7 +99,10 @@ Isso sobe:
 Internet
    │
    ▼
-jobwatch-proxy (Nginx, portas 80/443)
+nginx do host (Ubuntu, portas 80/443)   ← em VPS compartilhado
+   │
+   ▼
+jobwatch-proxy (Nginx no Docker, PROXY_HTTP_PORT=18083 em 127.0.0.1)
    ├── /        → jobwatch-frontend (SPA estático)
    └── /api/*   → jobwatch-api
                      │
@@ -109,6 +112,16 @@ jobwatch-proxy (Nginx, portas 80/443)
                      │
               jobwatch-worker (monitoring + notifications)
 ```
+
+Em VPS que já tem nginx na 80/443 (o erro típico é `502 Bad Gateway
+nginx/1.24.0 (Ubuntu)`), **não** mapeie o proxy Docker nessas portas. O
+`docker-compose.prod.yml` já publica o proxy em `127.0.0.1:18083` por padrão
+(`PROXY_HTTP_PORT`), alinhado ao site `jobwatch.maselcorp.com.br`. Aponte o
+nginx do host para essa porta — veja `deploy/nginx/host-jobwatch.conf.example`.
+
+Portas do compose de desenvolvimento (`API_HOST_PORT`, `POSTGRES_HOST_PORT`,
+`REDIS_HOST_PORT`, `EXTRACTOR_HOST_PORT`) também são ajustáveis no `.env` se
+algum outro app no mesmo servidor já usar 3000/5432/6379/8100.
 
 Frontend e API ficam no mesmo domínio/porta (via proxy), então não há CORS em
 produção. `deploy/nginx/nginx.conf` já sobe em HTTP puro (suficiente atrás de um

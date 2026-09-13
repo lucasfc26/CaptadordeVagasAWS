@@ -1,0 +1,31 @@
+# Host (Ubuntu) nginx site for JobWatch on a shared VPS.
+#
+# The Ubuntu nginx keeps ports 80/443. JobWatch's docker proxy listens on
+# 127.0.0.1:18083 (see PROXY_HTTP_PORT in .env / docker-compose.prod.yml),
+# matching the existing site jobwatch.maselcorp.com.br.
+#
+# Install / update:
+#   1. Confirm server_name matches the domain.
+#   2. sudo cp deploy/nginx/host-jobwatch.conf.example /etc/nginx/sites-available/jobwatch.maselcorp.com.br
+#   3. sudo ln -sf /etc/nginx/sites-available/jobwatch.maselcorp.com.br /etc/nginx/sites-enabled/
+#   4. sudo nginx -t && sudo systemctl reload nginx
+#
+# Optional TLS with certbot:
+#   sudo certbot --nginx -d jobwatch.maselcorp.com.br
+
+server {
+    listen 80;
+    server_name jobwatch.maselcorp.com.br;
+
+    client_max_body_size 2m;
+
+    location / {
+        proxy_pass http://127.0.0.1:18083;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 60s;
+    }
+}

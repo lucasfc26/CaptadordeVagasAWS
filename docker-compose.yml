@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-jobwatch}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jobwatch}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -34,7 +34,7 @@ services:
       REDIS_PASSWORD: ${REDIS_PASSWORD:-}
       REDISCLI_AUTH: ${REDIS_PASSWORD:-}
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -75,7 +75,7 @@ services:
       WHATSAPP_TEMPLATE_BODY_PARAMS: ${WHATSAPP_TEMPLATE_BODY_PARAMS:-}
       WAREHOUSE_EXTRACTOR_URL: ${WAREHOUSE_EXTRACTOR_URL:-http://warehouse-extractor:8100}
     ports:
-      - "3000:3000"
+      - "${API_HOST_PORT:-3000}:3000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -135,7 +135,7 @@ services:
       EXTRACTOR_TIMEZONE: ${WAREHOUSE_EXTRACTOR_TIMEZONE:-America/Los_Angeles}
     shm_size: '1gb'
     ports:
-      - '8100:8100'
+      - '${EXTRACTOR_HOST_PORT:-8100}:8100'
 
 volumes:
   postgres_data:
