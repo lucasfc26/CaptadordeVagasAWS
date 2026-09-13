@@ -29,6 +29,7 @@ import type {
   DashboardStats,
   UserSettings,
   PaginatedResponse,
+  ApiInspectResult,
 } from '@/types';
 
 // --- Auth ---
@@ -41,6 +42,7 @@ export const authService = {
     const res = await apiClient.post<AuthResponse>('/auth/register', {
       name: data.name,
       email: data.email,
+      phone: data.phone,
       password: data.password,
     });
     return res.data;
@@ -75,6 +77,24 @@ export const jobsService = {
   },
   toggleFavorite: async (id: string) => {
     const res = await apiClient.patch<Job>(`/jobs/${id}/favorite`);
+    return res.data;
+  },
+  remove: async (id: string) => {
+    await apiClient.delete(`/jobs/${id}`);
+    return id;
+  },
+  removeMany: async (ids: string[]) => {
+    const res = await apiClient.post<{ deleted: number }>('/jobs/bulk-delete', { ids });
+    return res.data;
+  },
+  removeAll: async () => {
+    const res = await apiClient.post<{ deleted: number }>('/jobs/bulk-delete', { all: true });
+    return res.data;
+  },
+  notifyWhatsapp: async (id: string) => {
+    const res = await apiClient.post<{ sent: boolean; notificationId: string }>(
+      `/jobs/${id}/notify-whatsapp`,
+    );
     return res.data;
   },
 };
@@ -130,6 +150,14 @@ export const searchesService = {
     const res = await apiClient.post<Search>(`/searches/${id}/resume`);
     return res.data;
   },
+  inspectApi: async (url: string) => {
+    const res = await apiClient.post<ApiInspectResult>('/searches/inspect-api', { url });
+    return res.data;
+  },
+  runNow: async () => {
+    const res = await apiClient.post<{ queued: number }>('/searches/run-now');
+    return res.data;
+  },
   history: async (id: string) => {
     const res = await apiClient.get<
       PaginatedResponse<{
@@ -158,6 +186,18 @@ export const notificationsService = {
   },
   markRead: async (id: string) => {
     const res = await apiClient.patch<Notification>(`/notifications/${id}/read`);
+    return res.data;
+  },
+  remove: async (id: string) => {
+    await apiClient.delete(`/notifications/${id}`);
+    return id;
+  },
+  removeMany: async (ids: string[]) => {
+    const res = await apiClient.post<{ deleted: number }>('/notifications/bulk-delete', { ids });
+    return res.data;
+  },
+  removeAll: async () => {
+    const res = await apiClient.post<{ deleted: number }>('/notifications/bulk-delete', { all: true });
     return res.data;
   },
 };
@@ -189,6 +229,7 @@ interface BackendUserSettings {
   emailEnabled: boolean;
   pushEnabled: boolean;
   smsEnabled: boolean;
+  whatsappEnabled: boolean;
   newJobAlertEnabled: boolean;
   periodicSummaryEnabled: boolean;
   defaultFrequencyMinutes: number;
@@ -200,6 +241,7 @@ function mapSettings(settings: BackendUserSettings, timezone: string): UserSetti
       email: settings.emailEnabled,
       push: settings.pushEnabled,
       sms: settings.smsEnabled,
+      whatsapp: settings.whatsappEnabled,
       newJobAlert: settings.newJobAlertEnabled,
       periodicSummary: settings.periodicSummaryEnabled,
     },
@@ -211,7 +253,7 @@ function mapSettings(settings: BackendUserSettings, timezone: string): UserSetti
 }
 
 export const usersService = {
-  updateProfile: async (data: { name?: string; timezone?: string }) => {
+  updateProfile: async (data: { name?: string; phone?: string; timezone?: string }) => {
     const res = await apiClient.patch<User>('/users/me', data);
     return res.data;
   },
@@ -228,6 +270,7 @@ export const usersService = {
       if (data.notifications.email !== undefined) payload.emailEnabled = data.notifications.email;
       if (data.notifications.push !== undefined) payload.pushEnabled = data.notifications.push;
       if (data.notifications.sms !== undefined) payload.smsEnabled = data.notifications.sms;
+      if (data.notifications.whatsapp !== undefined) payload.whatsappEnabled = data.notifications.whatsapp;
       if (data.notifications.newJobAlert !== undefined)
         payload.newJobAlertEnabled = data.notifications.newJobAlert;
       if (data.notifications.periodicSummary !== undefined)

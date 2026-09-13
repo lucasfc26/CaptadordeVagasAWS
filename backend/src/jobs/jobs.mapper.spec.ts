@@ -71,7 +71,9 @@ describe('jobToResponse', () => {
 
   it('marks an inactive, unapplied job as EXPIRED', () => {
     const job = buildJob({ isActive: false });
-    expect(jobToResponse(job, 'user-1').status).toBe('EXPIRED');
+    const response = jobToResponse(job, 'user-1');
+    expect(response.status).toBe('EXPIRED');
+    expect(response.lastSeenAt).toEqual(job.lastSeenAt);
   });
 
   it('ignores another user state when resolving status', () => {
@@ -88,5 +90,21 @@ describe('jobToResponse', () => {
       ],
     });
     expect(jobToResponse(job, 'user-1').status).toBe('NEW');
+  });
+
+  it('exposes a street address separately from city and state', () => {
+    const response = jobToResponse(
+      buildJob({
+        location: '7601 Metro Air Parkway, Sacramento, CA 95837',
+        city: 'Sacramento',
+        state: 'CA',
+      }),
+      'user-1',
+    );
+    expect(response.location).toEqual({
+      city: 'Sacramento',
+      state: 'CA',
+      address: '7601 Metro Air Parkway, Sacramento, CA 95837',
+    });
   });
 });

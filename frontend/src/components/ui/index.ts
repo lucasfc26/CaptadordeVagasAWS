@@ -12,3 +12,5 @@ export { Modal } from './Modal';
 export { Skeleton } from './Skeleton';
 export { EmptyState } from './EmptyState';
 export { Spinner } from './Spinner';
+export { Icon } from './Icon';
+export { BulkActionBar } from './BulkActionBar';

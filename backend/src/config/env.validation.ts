@@ -79,6 +79,30 @@ class EnvironmentVariables {
 
   @IsString()
   @IsOptional()
+  WHATSAPP_API_KEY?: string;
+
+  @IsString()
+  @IsOptional()
+  WHATSAPP_PHONE_NUMBER_ID?: string;
+
+  @IsString()
+  @IsOptional()
+  WHATSAPP_GRAPH_VERSION?: string;
+
+  @IsString()
+  @IsOptional()
+  WHATSAPP_TEMPLATE_NAME?: string;
+
+  @IsString()
+  @IsOptional()
+  WHATSAPP_TEMPLATE_LANGUAGE?: string;
+
+  @IsString()
+  @IsOptional()
+  WHATSAPP_TEMPLATE_BODY_PARAMS?: string;
+
+  @IsString()
+  @IsOptional()
   CORS_ORIGIN: string = 'http://localhost:5173';
 
   @IsIn(['amazon', 'mock'])
@@ -88,6 +112,10 @@ class EnvironmentVariables {
   @IsInt()
   @IsOptional()
   MONITORING_CONCURRENCY: number = 3;
+
+  @IsString()
+  @IsOptional()
+  WAREHOUSE_EXTRACTOR_URL?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

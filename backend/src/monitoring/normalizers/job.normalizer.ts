@@ -65,7 +65,7 @@ export function normalizeJob(external: ExternalJob): NormalizedJob {
       ? external.requirements
       : splitRequirements(external.description),
     benefits: external.benefits ?? [],
-    salary: external.salary,
-    schedule: external.schedule,
+    salary: external.salary?.trim() || undefined,
+    schedule: external.schedule?.trim() || undefined,
   };
 }

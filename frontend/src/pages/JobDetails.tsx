@@ -1,50 +1,44 @@
-// ============================================
-// JobWatch - Job Details Page
-// ============================================
-
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Eye, MapPin, Clock, Building2, DollarSign, Calendar, Briefcase } from 'lucide-react';
-import { useJob, useMarkJobViewed } from '@/hooks';
+import { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDeleteJob, useJob, useMarkJobViewed } from '@/hooks';
 import { useToast } from '@/context/ToastContext';
 import { StatusBadge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Icon } from '@/components/ui/Icon';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { formatRelativeTime, formatDateTime } from '@/lib/utils';
+import { facilityCode, formatPay, jobMapQuery, jobTypeLabel } from '@/lib/display';
+import { formatDateTime, formatRelativeTime } from '@/lib/utils';
+import { JobMap } from '@/components/jobs/JobMap';
+import { ShareJobButton } from '@/components/jobs/ShareJobButton';
+import { WhatsAppNotifyButton } from '@/components/jobs/WhatsAppNotifyButton';
 
 export function JobDetailsPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { data: job, isLoading } = useJob(id || '');
   const markViewed = useMarkJobViewed();
+  const deleteJob = useDeleteJob();
   const { toast } = useToast();
 
-  const handleMarkViewed = () => {
-    if (!job) return;
-    markViewed.mutate(job.id, {
-      onSuccess: () => toast(`"${job.title}" marcada como visualizada`),
-    });
-  };
+  useEffect(() => {
+    if (job?.status === 'NEW') markViewed.mutate(job.id);
+  }, [job?.id, job?.status, markViewed]);
 
   if (isLoading) {
     return (
       <div className="space-y-6">
         <Skeleton className="h-5 w-32" />
-        <div className="space-y-3">
-          <Skeleton className="h-7 w-2/3" />
-          <Skeleton className="h-4 w-1/3" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-        <div className="space-y-2">
-          <Skeleton className="h-40 w-full" />
-        </div>
+        <Skeleton className="h-10 w-2/3" />
+        <Skeleton className="h-40 w-full" />
       </div>
     );
   }
 
   if (!job) {
     return (
-      <div className="space-y-4 text-center py-12">
-        <h2 className="text-sm font-medium text-slate-300">Vaga não encontrada</h2>
+      <div className="space-y-4 py-12 text-center">
+        <h2 className="font-headline-sm text-headline-sm text-on-surface">Vaga não encontrada</h2>
         <Link to="/jobs">
           <Button variant="outline" size="sm">Voltar para vagas</Button>
         </Link>
@@ -52,73 +46,85 @@ export function JobDetailsPage() {
     );
   }
 
-  const jobTypeLabels: Record<string, string> = {
-    FULL_TIME: 'Tempo integral',
-    PART_TIME: 'Meio período',
-    SEASONAL: 'Sazonal',
-    TEMPORARY: 'Temporário',
-  };
-
   return (
-    <div className="space-y-6">
-      {/* Back */}
-      <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors">
-        <ArrowLeft className="h-3.5 w-3.5" />
+    <div className="space-y-space-lg">
+      <Link to="/jobs" className="inline-flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface">
+        <Icon name="arrow_back" className="text-[16px]" />
         Voltar para vagas
       </Link>
 
-      {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-1.5">
-            <h1 className="text-lg font-semibold text-slate-100">{job.title}</h1>
-            <div className="flex items-center gap-3 text-sm text-slate-400">
-              <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {job.location.city}, {job.location.state}</span>
-              <span className="flex items-center gap-1"><Building2 className="h-3.5 w-3.5" /> {job.facility}</span>
-            </div>
+      <section className="relative overflow-hidden rounded-2xl border border-outline-variant/15 bg-surface-container-low p-space-lg shadow-elevation-2">
+        <div className="flex flex-wrap items-center justify-between gap-space-xs">
+          <div className="flex flex-wrap items-center gap-space-xs">
+            {job.status === 'NEW' && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary-container/20 px-2.5 py-0.5 font-mono-sm text-mono-sm font-bold uppercase tracking-wider text-primary">
+                <span className="h-1.5 w-1.5 animate-ping rounded-full bg-primary" />
+                Novo Match
+              </span>
+            )}
+            <span className="rounded bg-surface-container px-2 py-0.5 font-mono-data text-mono-data font-semibold text-secondary">
+              {facilityCode(job.facility)}
+            </span>
+            <StatusBadge status={job.status} />
           </div>
-          <StatusBadge status={job.status} />
+          <ShareJobButton job={job} />
         </div>
-
-        {/* Meta info */}
-        <div className="flex flex-wrap gap-4 text-xs text-slate-500">
-          <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5" /> {jobTypeLabels[job.jobType] || job.jobType}</span>
-          {job.salary && <span className="flex items-center gap-1"><DollarSign className="h-3.5 w-3.5" /> {job.salary}</span>}
-          <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> Encontrada {formatRelativeTime(job.foundAt)}</span>
-          {job.schedule && <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {job.schedule}</span>}
+        <h1 className="mt-space-sm font-headline-lg text-headline-lg tracking-tight text-on-surface">{job.title}</h1>
+        <p className="mt-1 font-body-md text-body-md text-on-surface-variant">
+          {job.facility} — {job.location.address || `${job.location.city}, ${job.location.state}`}
+        </p>
+        <div className="mt-space-md grid grid-cols-2 gap-space-sm rounded-xl bg-surface-container p-space-sm sm:grid-cols-4">
+          <DetailChip label="Compensação" value={formatPay(job.salary)} />
+          <DetailChip label="Duração" value={job.schedule || '—'} />
+          <DetailChip label="Modalidade" value={jobTypeLabel(job.jobType)} />
+          <DetailChip
+            label={job.status === 'EXPIRED' ? 'Última vez apresentada' : 'Sinalizada'}
+            value={formatRelativeTime(job.lastSeenAt || job.foundAt)}
+          />
         </div>
-
-        {/* Actions */}
-        <div className="flex flex-wrap items-center gap-2 pt-2">
-          <a href={job.externalUrl} target="_blank" rel="noopener noreferrer">
-            <Button icon={<ExternalLink className="h-3.5 w-3.5" />}>
-              Candidate-se agora
-            </Button>
+        <div className="mt-space-md flex flex-wrap gap-space-sm">
+          <WhatsAppNotifyButton jobId={job.id} jobTitle={job.title} />
+          <a
+            href={job.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-space-xs rounded-full bg-primary px-space-md py-2.5 font-body-sm font-semibold text-on-primary shadow-accent-primary transition-all hover:brightness-110 active:scale-[0.97]"
+          >
+            Candidate-se agora
+            <Icon name="open_in_new" className="text-[16px]" />
           </a>
-          {job.status === 'NEW' && (
-            <Button variant="outline" onClick={handleMarkViewed} loading={markViewed.isPending} icon={<Eye className="h-3.5 w-3.5" />}>
-              Marcar como visualizada
-            </Button>
-          )}
+          <Button
+            variant="danger"
+            onClick={() => {
+              if (!window.confirm(`Excluir a vaga "${job.title}"?`)) return;
+              deleteJob.mutate(job.id, {
+                onSuccess: () => {
+                  toast(`"${job.title}" excluída`);
+                  navigate('/jobs');
+                },
+              });
+            }}
+            loading={deleteJob.isPending}
+          >
+            Excluir vaga
+          </Button>
         </div>
-      </div>
+      </section>
 
-      {/* Description */}
       {job.description && (
-        <Card className="p-5 space-y-3">
-          <h2 className="text-sm font-medium text-slate-200">Descrição</h2>
-          <p className="text-sm text-slate-400 leading-relaxed">{job.description}</p>
+        <Card className="space-y-space-sm p-space-lg">
+          <h2 className="font-headline-sm text-headline-sm text-on-surface">Descrição</h2>
+          <p className="font-body-md text-body-md leading-relaxed text-on-surface-variant">{job.description}</p>
         </Card>
       )}
 
-      {/* Requirements */}
       {job.requirements && job.requirements.length > 0 && (
-        <Card className="p-5 space-y-3">
-          <h2 className="text-sm font-medium text-slate-200">Requisitos</h2>
+        <Card className="space-y-space-sm p-space-lg">
+          <h2 className="font-headline-sm text-headline-sm text-on-surface">Requisitos</h2>
           <ul className="space-y-1.5">
-            {job.requirements.map((req, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-600 shrink-0" />
+            {job.requirements.map((req) => (
+              <li key={req} className="flex items-start gap-2 font-body-md text-body-md text-on-surface-variant">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                 {req}
               </li>
             ))}
@@ -126,14 +132,13 @@ export function JobDetailsPage() {
         </Card>
       )}
 
-      {/* Benefits */}
       {job.benefits && job.benefits.length > 0 && (
-        <Card className="p-5 space-y-3">
-          <h2 className="text-sm font-medium text-slate-200">Benefícios</h2>
+        <Card className="space-y-space-sm p-space-lg">
+          <h2 className="font-headline-sm text-headline-sm text-on-surface">Benefícios</h2>
           <ul className="space-y-1.5">
-            {job.benefits.map((benefit, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+            {job.benefits.map((benefit) => (
+              <li key={benefit} className="flex items-start gap-2 font-body-md text-body-md text-on-surface-variant">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" />
                 {benefit}
               </li>
             ))}
@@ -141,28 +146,41 @@ export function JobDetailsPage() {
         </Card>
       )}
 
-      {/* Details */}
-      <Card className="p-5 space-y-3">
-        <h2 className="text-sm font-medium text-slate-200">Detalhes</h2>
-        <dl className="space-y-2 text-sm">
-          <DetailRow label="Data de descoberta" value={formatDateTime(job.foundAt)} />
-          <DetailRow label="Status" value={<StatusBadge status={job.status} />} />
-          <DetailRow label="Tipo" value={jobTypeLabels[job.jobType] || job.jobType} />
-          <DetailRow label="Local" value={`${job.location.city}, ${job.location.state}`} />
-          <DetailRow label="Centro" value={job.facility} />
-          {job.salary && <DetailRow label="Salário" value={job.salary} />}
-          {job.schedule && <DetailRow label="Horário" value={job.schedule} />}
+      <Card className="space-y-space-sm p-space-lg">
+        <h2 className="font-headline-sm text-headline-sm text-on-surface">Detalhes</h2>
+        <dl className="space-y-2">
+          <Row label="Data de descoberta" value={formatDateTime(job.foundAt)} />
+          <Row label="Última vez apresentada" value={formatDateTime(job.lastSeenAt || job.foundAt)} />
+          {job.status === 'EXPIRED' && (
+            <Row label="Status" value="Não apresentada na última varredura" />
+          )}
+          <Row label="Local" value={job.location.address || `${job.location.city}, ${job.location.state}`} />
+          <Row label="Centro" value={job.facility} />
+          <Row label="ID" value={`#${job.id.slice(0, 8)}`} />
         </dl>
+        <JobMap
+          query={jobMapQuery(job)}
+          label={job.location.address || `${job.location.city}, ${job.location.state}`}
+        />
       </Card>
     </div>
   );
 }
 
-function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
+function DetailChip({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <span className="block font-label-caps text-label-caps uppercase text-outline">{label}</span>
+      <span className="font-body-sm text-body-sm font-semibold text-on-surface">{value}</span>
+    </div>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start justify-between gap-4">
-      <dt className="text-slate-500 shrink-0">{label}</dt>
-      <dd className="text-slate-300 text-right">{value}</dd>
+      <dt className="font-body-sm text-body-sm text-on-surface-variant">{label}</dt>
+      <dd className="font-body-sm text-body-sm text-on-surface">{value}</dd>
     </div>
   );
 }

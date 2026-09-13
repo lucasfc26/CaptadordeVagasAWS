@@ -34,8 +34,9 @@ export class UsersService {
       data: {
         name: data.name,
         email: data.email,
+        phone: data.phone,
         passwordHash,
-        settings: { create: {} },
+        settings: { create: { whatsappEnabled: true } },
       },
     });
   }
@@ -46,6 +47,7 @@ export class UsersService {
       where: { id: userId },
       data: {
         name: data.name,
+        phone: data.phone,
         timezone: data.timezone,
       },
     });

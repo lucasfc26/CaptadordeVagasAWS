@@ -17,6 +17,13 @@ enum SearchStatus {
   ERROR
 }
 
+enum SearchSourceType {
+  AMAZON_JOBS
+  AMAZON_WAREHOUSE
+  JOB_API
+  JOB_XPATH
+}
+
 enum ExecutionStatus {
   RUNNING
   SUCCESS
@@ -34,6 +41,7 @@ enum NotificationChannel {
   EMAIL
   PUSH
   SMS
+  WHATSAPP
 }
 
 enum NotificationType {
@@ -65,6 +73,7 @@ model User {
   name         String
   email        String   @unique
   passwordHash String
+  phone        String   @default("")
   timezone     String   @default("America/Los_Angeles")
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
@@ -84,6 +93,7 @@ model UserSettings {
   emailEnabled          Boolean @default(true)
   pushEnabled           Boolean @default(false)
   smsEnabled            Boolean @default(false)
+  whatsappEnabled       Boolean @default(true)
   newJobAlertEnabled    Boolean @default(true)
   periodicSummaryEnabled Boolean @default(false)
   defaultFrequencyMinutes Int   @default(60)
@@ -101,6 +111,11 @@ model Search {
   id               String       @id @default(cuid())
   userId           String
   name             String
+  sourceType       SearchSourceType @default(AMAZON_JOBS)
+  targetUrl        String?
+  xpath            String?
+  apiFilters       Json?
+  warehouseFilters Json?
   status           SearchStatus @default(ACTIVE)
   radiusMiles      Int          @default(25)
   frequencyMinutes Int          @default(60)

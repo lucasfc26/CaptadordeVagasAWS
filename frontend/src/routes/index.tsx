@@ -24,7 +24,7 @@ const SettingsPage = lazy(() => import('@/pages/Settings').then((m) => ({ defaul
 
 function SuspenseWrapper() {
   return (
-    <div className="flex h-screen items-center justify-center bg-slate-950">
+    <div className="flex h-screen items-center justify-center bg-surface">
       <Spinner size="lg" />
     </div>
   );

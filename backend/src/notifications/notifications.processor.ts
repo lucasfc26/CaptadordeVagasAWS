@@ -5,6 +5,7 @@ import { Job } from 'bullmq';
 import { PrismaService } from '../database/prisma.service';
 import { NOTIFICATIONS_QUEUE } from '../queues/queue.constants';
 import { EmailNotificationChannel } from './channels/email-notification.channel';
+import { WhatsappNotificationChannel } from './channels/whatsapp-notification.channel';
 import { UnavailableNotificationChannel } from './channels/unavailable-notification.channel';
 import { NotificationChannelSender } from './channels/notification-channel.interface';
 
@@ -20,10 +21,12 @@ export class NotificationsProcessor extends WorkerHost {
   constructor(
     private readonly prisma: PrismaService,
     emailChannel: EmailNotificationChannel,
+    whatsappChannel: WhatsappNotificationChannel,
   ) {
     super();
     this.senders = new Map([
       [NotificationChannel.EMAIL, emailChannel],
+      [NotificationChannel.WHATSAPP, whatsappChannel],
       [NotificationChannel.PUSH, new UnavailableNotificationChannel(NotificationChannel.PUSH)],
       [NotificationChannel.SMS, new UnavailableNotificationChannel(NotificationChannel.SMS)],
     ]);
@@ -55,8 +58,28 @@ export class NotificationsProcessor extends WorkerHost {
           throw new Error(`Nenhum sender configurado para o canal ${delivery.channel}`);
         }
 
+        const destination =
+          delivery.channel === NotificationChannel.WHATSAPP ||
+          delivery.channel === NotificationChannel.SMS
+            ? notification.user.phone
+            : notification.user.email;
+
+        if (
+          (delivery.channel === NotificationChannel.WHATSAPP ||
+            delivery.channel === NotificationChannel.SMS) &&
+          !destination
+        ) {
+          throw new Error(
+            'Nenhum WhatsApp salvo em Configurações > Perfil para este usuário',
+          );
+        }
+
+        this.logger.log(
+          `Disparando ${delivery.channel} da notificação ${notification.id} para ${destination ?? 'destino vazio'}`,
+        );
+
         await sender.send({
-          to: notification.user.email,
+          to: destination,
           title: notification.title,
           message: notification.message,
           jobUrl: notification.job?.url,
@@ -72,6 +95,11 @@ export class NotificationsProcessor extends WorkerHost {
         });
         anySent = true;
       } catch (error) {
+        this.logger.error(
+          `Falha ao enviar ${delivery.channel} da notificação ${notification.id}: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        );
         await this.prisma.notificationDelivery.update({
           where: { id: delivery.id },
           data: {

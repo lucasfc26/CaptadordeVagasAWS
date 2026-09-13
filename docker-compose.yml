@@ -55,6 +55,13 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM: ${SMTP_FROM:-JobWatch <no-reply@jobwatch.local>}
+      WHATSAPP_API_KEY: ${WHATSAPP_API_KEY:-}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_GRAPH_VERSION: ${WHATSAPP_GRAPH_VERSION:-v25.0}
+      WHATSAPP_TEMPLATE_NAME: ${WHATSAPP_TEMPLATE_NAME:-hello_world}
+      WHATSAPP_TEMPLATE_LANGUAGE: ${WHATSAPP_TEMPLATE_LANGUAGE:-en_US}
+      WHATSAPP_TEMPLATE_BODY_PARAMS: ${WHATSAPP_TEMPLATE_BODY_PARAMS:-}
+      WAREHOUSE_EXTRACTOR_URL: ${WAREHOUSE_EXTRACTOR_URL:-http://warehouse-extractor:8100}
     ports:
       - "3000:3000"
     depends_on:
@@ -90,11 +97,33 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM: ${SMTP_FROM:-JobWatch <no-reply@jobwatch.local>}
+      WHATSAPP_API_KEY: ${WHATSAPP_API_KEY:-}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_GRAPH_VERSION: ${WHATSAPP_GRAPH_VERSION:-v25.0}
+      WHATSAPP_TEMPLATE_NAME: ${WHATSAPP_TEMPLATE_NAME:-hello_world}
+      WHATSAPP_TEMPLATE_LANGUAGE: ${WHATSAPP_TEMPLATE_LANGUAGE:-en_US}
+      WHATSAPP_TEMPLATE_BODY_PARAMS: ${WHATSAPP_TEMPLATE_BODY_PARAMS:-}
+      WAREHOUSE_EXTRACTOR_URL: ${WAREHOUSE_EXTRACTOR_URL:-http://warehouse-extractor:8100}
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+      warehouse-extractor:
+        condition: service_started
+
+  warehouse-extractor:
+    build:
+      context: ./extractor
+      dockerfile: Dockerfile
+    container_name: jobwatch-warehouse-extractor
+    restart: unless-stopped
+    environment:
+      HEADLESS: ${WAREHOUSE_EXTRACTOR_HEADLESS:-true}
+      EXTRACTOR_TIMEZONE: ${WAREHOUSE_EXTRACTOR_TIMEZONE:-America/Los_Angeles}
+    shm_size: '1gb'
+    ports:
+      - '8100:8100'
 
 volumes:
   postgres_data:

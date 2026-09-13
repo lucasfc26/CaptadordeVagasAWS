@@ -1,14 +1,17 @@
 import { Test } from '@nestjs/testing';
-import { ExecutionStatus, SearchStatus } from '@prisma/client';
+import { ExecutionStatus, SearchSourceType, SearchStatus } from '@prisma/client';
 import { PrismaService } from '../database/prisma.service';
 import { MonitoringQueueService } from '../queues/monitoring-queue.service';
 import { NotificationDispatchService } from '../notifications/notification-dispatch.service';
+import { AmazonWarehouseAdapter } from './adapters/amazon-warehouse.adapter';
 import { JOB_SOURCE_ADAPTER, JobSourceAdapter } from './interfaces/job-source-adapter.interface';
 import { MonitoringService } from './monitoring.service';
 
 const SEARCH_FIXTURE = {
   id: 'search-1',
   userId: 'user-1',
+  sourceType: SearchSourceType.AMAZON_JOBS,
+  warehouseFilters: null,
   status: SearchStatus.ACTIVE,
   frequencyMinutes: 60,
   radiusMiles: 25,
@@ -90,6 +93,7 @@ describe('MonitoringService', () => {
         MonitoringService,
         { provide: PrismaService, useValue: prisma },
         { provide: JOB_SOURCE_ADAPTER, useValue: adapter },
+        { provide: AmazonWarehouseAdapter, useValue: { sourceName: 'amazon-warehouse', search: jest.fn() } },
         { provide: NotificationDispatchService, useValue: notificationDispatch },
         { provide: MonitoringQueueService, useValue: monitoringQueue },
       ],
@@ -125,7 +129,7 @@ describe('MonitoringService', () => {
 
   it('does not notify again when the same job is found on a later run (dedup)', async () => {
     adapter.search.mockResolvedValue([EXTERNAL_JOB]);
-    prisma.job.findUnique.mockResolvedValue({ id: 'job-1' });
+    prisma.job.findUnique.mockResolvedValue({ id: 'job-1', isActive: true });
     prisma.job.upsert.mockResolvedValue({
       id: 'job-1',
       title: 'Warehouse Associate',
@@ -139,6 +143,21 @@ describe('MonitoringService', () => {
     expect(prisma.monitoringExecution.update).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ newJobs: 0 }) }),
     );
+  });
+
+  it('notifies again when a previously missing job reappears', async () => {
+    adapter.search.mockResolvedValue([EXTERNAL_JOB]);
+    prisma.job.findUnique.mockResolvedValue({ id: 'job-1', isActive: false });
+    prisma.job.upsert.mockResolvedValue({
+      id: 'job-1',
+      title: 'Warehouse Associate',
+      city: 'Richmond',
+      state: 'CA',
+    });
+
+    await service.executeSearch('search-1');
+
+    expect(notificationDispatch.create).toHaveBeenCalledTimes(1);
   });
 
   it('records a FAILED execution and puts the search in ERROR when the adapter throws', async () => {

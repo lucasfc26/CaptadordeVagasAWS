@@ -7,6 +7,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  phone?: string;
   avatar?: string;
   timezone?: string;
   createdAt: string;
@@ -30,6 +31,7 @@ export interface LoginCredentials {
 export interface RegisterData {
   name: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 }
@@ -45,6 +47,7 @@ export type JobType = 'FULL_TIME' | 'PART_TIME' | 'SEASONAL' | 'TEMPORARY';
 export interface JobLocation {
   city: string;
   state: string;
+  address?: string;
   distance?: number;
 }
 
@@ -63,14 +66,52 @@ export interface Job {
   status: JobStatus;
   searchId: string;
   foundAt: string;
+  lastSeenAt?: string;
   viewedAt?: string;
   appliedAt?: string;
 }
 
 // --- Searches / Monitoring ---
 export type SearchStatus = 'ACTIVE' | 'PAUSED' | 'ERROR';
+export type SearchSourceType = 'AMAZON_JOBS' | 'AMAZON_WAREHOUSE' | 'JOB_API' | 'JOB_XPATH';
+
+export interface ApiFilterRule {
+  path: string;
+  values: string[];
+}
+
+export interface ApiFilters {
+  itemPath?: string;
+  filters: ApiFilterRule[];
+}
+
+export interface ApiInspectField {
+  path: string;
+  type: 'string' | 'number' | 'boolean' | 'mixed';
+  values: string[];
+  uniqueCount: number;
+}
+
+export interface WarehouseFilters {
+  zipCode: string;
+  workHours?: number;
+  schedule?: string[];
+  length?: string;
+  whenStart?: string;
+  jobTitle?: string;
+  employmentType?: string;
+  payRateMin?: number;
+  payRateMax?: number;
+}
+
+export interface ApiInspectResult {
+  itemPath: string;
+  itemCount: number;
+  fields: ApiInspectField[];
+  items: Record<string, unknown>[];
+}
 export type MonitoringFrequency = '5min' | '15min' | '30min' | '1h' | '2h' | '6h' | '12h' | '24h';
-export type NotificationChannel = 'EMAIL' | 'PUSH' | 'SMS';
+export type NotificationChannel = 'EMAIL' | 'PUSH' | 'SMS' | 'WHATSAPP';
 
 export interface SearchFilters {
   keywords: string[];
@@ -92,6 +133,11 @@ export interface SearchConfig {
 export interface Search {
   id: string;
   name: string;
+  sourceType?: SearchSourceType;
+  targetUrl?: string | null;
+  xpath?: string | null;
+  apiFilters?: ApiFilters | null;
+  warehouseFilters?: WarehouseFilters | null;
   location: string;
   radius: number;
   keywords: string[];
@@ -162,6 +208,15 @@ export interface PaginatedResponse<T> {
   page: number;
   limit: number;
   totalPages: number;
+  statusCounts?: JobStatusCounts;
+}
+
+export interface JobStatusCounts {
+  all: number;
+  NEW: number;
+  VIEWED: number;
+  APPLIED: number;
+  EXPIRED: number;
 }
 
 export interface ApiError {
@@ -179,6 +234,8 @@ export interface JobFilters {
   onlyNew?: boolean;
   searchId?: string;
   sortBy?: 'newest' | 'oldest' | 'location' | 'title';
+  payRateMin?: number;
+  payRateMax?: number;
   page?: number;
   limit?: number;
 }
@@ -198,6 +255,7 @@ export interface UserSettings {
     email: boolean;
     push: boolean;
     sms: boolean;
+    whatsapp: boolean;
     newJobAlert: boolean;
     periodicSummary: boolean;
   };

@@ -1,10 +1,6 @@
-// ============================================
-// JobWatch - Toast Context
-// ============================================
-
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
-import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/components/ui/Icon';
 
 type ToastType = 'success' | 'error' | 'info';
 
@@ -37,29 +33,34 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  const icons: Record<ToastType, ReactNode> = {
-    success: <CheckCircle2 className="h-4 w-4 text-emerald-400" />,
-    error: <AlertCircle className="h-4 w-4 text-red-400" />,
-    info: <Info className="h-4 w-4 text-cyan-400" />,
+  const icons: Record<ToastType, string> = {
+    success: 'check_circle',
+    error: 'error',
+    info: 'info',
+  };
+
+  const colors: Record<ToastType, string> = {
+    success: 'text-primary',
+    error: 'text-error',
+    info: 'text-secondary',
   };
 
   return (
     <ToastContext.Provider value={{ toast: addToast }}>
       {children}
-      {/* Toast container */}
       <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
             className={cn(
-              'pointer-events-auto flex items-center gap-3 rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 shadow-lg transition-all',
-              'animate-in slide-in-from-right'
+              'pointer-events-auto flex items-center gap-3 rounded-xl border border-outline-variant/30 bg-surface-container-low px-4 py-3 shadow-elevation-3',
+              'animate-in',
             )}
           >
-            {icons[t.type]}
-            <p className="text-sm text-slate-200">{t.message}</p>
-            <button onClick={() => removeToast(t.id)} className="text-slate-500 hover:text-slate-300 ml-2">
-              <X className="h-3.5 w-3.5" />
+            <Icon name={icons[t.type]} className={cn('text-[18px]', colors[t.type])} />
+            <p className="font-body-sm text-body-sm text-on-surface">{t.message}</p>
+            <button onClick={() => removeToast(t.id)} className="ml-2 text-outline hover:text-on-surface">
+              <Icon name="close" className="text-[16px]" />
             </button>
           </div>
         ))}

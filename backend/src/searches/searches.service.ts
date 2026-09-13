@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { SearchStatus } from '@prisma/client';
+import { Prisma, SearchSourceType, SearchStatus } from '@prisma/client';
 import { PrismaService } from '../database/prisma.service';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { paginate } from '../common/utils/paginate';
@@ -18,21 +18,40 @@ export class SearchesService {
   ) {}
 
   async create(userId: string, dto: CreateSearchDto) {
-    const hasPrimary = dto.locations.some((l) => l.isPrimary);
+    const sourceType = dto.sourceType ?? SearchSourceType.AMAZON_JOBS;
+    const keywords = dto.keywords?.length
+      ? dto.keywords
+      : [dto.warehouseFilters?.zipCode || dto.targetUrl || dto.name];
+    const locations = dto.locations?.length
+      ? dto.locations
+      : [
+          {
+            city: dto.warehouseFilters?.zipCode || 'Custom',
+            state: dto.warehouseFilters ? 'US' : '—',
+            country: 'US',
+            isPrimary: true,
+          },
+        ];
+    const hasPrimary = locations.some((l) => l.isPrimary);
 
     const search = await this.prisma.search.create({
       data: {
         userId,
         name: dto.name,
+        sourceType,
+        targetUrl: dto.targetUrl,
+        xpath: dto.xpath,
+        apiFilters: dto.apiFilters as Prisma.InputJsonValue | undefined,
+        warehouseFilters: dto.warehouseFilters as Prisma.InputJsonValue | undefined,
         radiusMiles: dto.radiusMiles,
         frequencyMinutes: dto.frequencyMinutes,
         jobTypes: dto.jobTypes ?? [],
         notificationChannels: dto.notificationChannels,
         status: SearchStatus.ACTIVE,
         nextCheckAt: new Date(),
-        keywords: { create: dto.keywords.map((value) => ({ value })) },
+        keywords: { create: keywords.map((value) => ({ value })) },
         locations: {
-          create: dto.locations.map((location, index) => ({
+          create: locations.map((location, index) => ({
             city: location.city,
             state: location.state,
             country: location.country ?? 'US',
@@ -84,6 +103,11 @@ export class SearchesService {
       where: { id },
       data: {
         name: dto.name,
+        sourceType: dto.sourceType,
+        targetUrl: dto.targetUrl,
+        xpath: dto.xpath,
+        apiFilters: dto.apiFilters as Prisma.InputJsonValue | undefined,
+        warehouseFilters: dto.warehouseFilters as Prisma.InputJsonValue | undefined,
         radiusMiles: dto.radiusMiles,
         frequencyMinutes: dto.frequencyMinutes,
         jobTypes: dto.jobTypes,
@@ -142,6 +166,25 @@ export class SearchesService {
     });
     await this.monitoringQueue.scheduleSearch(id, 0);
     return searchToResponse(search, await this.getStats(id, userId));
+  }
+
+  async runNow(userId: string) {
+    const searches = await this.prisma.search.findMany({
+      where: { userId, status: SearchStatus.ACTIVE },
+      select: { id: true },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const now = new Date();
+    for (const search of searches) {
+      await this.prisma.search.update({
+        where: { id: search.id },
+        data: { nextCheckAt: now },
+      });
+      await this.monitoringQueue.scheduleSearch(search.id, 0);
+    }
+
+    return { queued: searches.length };
   }
 
   async history(userId: string, id: string, pagination: PaginationQueryDto) {

@@ -1,86 +1,312 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-slate-950: #0a0b0f;
-  --animate-in: animate-in 0.2s ease-out;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: Inter, sans-serif;
+  --font-mono-data: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-background: var(--jw-background);
+  --color-on-background: var(--jw-on-background);
+  --color-surface: var(--jw-surface);
+  --color-surface-dim: var(--jw-surface-dim);
+  --color-surface-bright: var(--jw-surface-bright);
+  --color-surface-container-lowest: var(--jw-surface-container-lowest);
+  --color-surface-container-low: var(--jw-surface-container-low);
+  --color-surface-container: var(--jw-surface-container);
+  --color-surface-container-high: var(--jw-surface-container-high);
+  --color-surface-container-highest: var(--jw-surface-container-highest);
+  --color-surface-variant: var(--jw-surface-variant);
+  --color-on-surface: var(--jw-on-surface);
+  --color-on-surface-variant: var(--jw-on-surface-variant);
+  --color-outline: var(--jw-outline);
+  --color-outline-variant: var(--jw-outline-variant);
+  --color-primary: var(--jw-primary);
+  --color-on-primary: var(--jw-on-primary);
+  --color-primary-container: var(--jw-primary-container);
+  --color-on-primary-container: var(--jw-on-primary-container);
+  --color-primary-fixed: var(--jw-primary-fixed);
+  --color-primary-fixed-dim: var(--jw-primary-fixed-dim);
+  --color-on-primary-fixed: var(--jw-on-primary-fixed);
+  --color-inverse-primary: var(--jw-inverse-primary);
+  --color-secondary: var(--jw-secondary);
+  --color-on-secondary: var(--jw-on-secondary);
+  --color-secondary-container: var(--jw-secondary-container);
+  --color-on-secondary-container: var(--jw-on-secondary-container);
+  --color-secondary-fixed: var(--jw-secondary-fixed);
+  --color-tertiary: var(--jw-tertiary);
+  --color-on-tertiary: var(--jw-on-tertiary);
+  --color-tertiary-container: var(--jw-tertiary-container);
+  --color-on-tertiary-container: var(--jw-on-tertiary-container);
+  --color-tertiary-fixed: var(--jw-tertiary-fixed);
+  --color-error: var(--jw-error);
+  --color-on-error: var(--jw-on-error);
+  --color-error-container: var(--jw-error-container);
+  --color-on-error-container: var(--jw-on-error-container);
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-margin: 2rem;
+  --spacing-margin-lg: 2.5rem;
 }
 
-/* Base styles */
-html {
-  color-scheme: dark;
+:root {
+  --jw-background: #faf8f3;
+  --jw-on-background: #201c15;
+  --jw-surface: #faf8f3;
+  --jw-surface-dim: #e6e0d3;
+  --jw-surface-bright: #faf8f3;
+  --jw-surface-container-lowest: #ffffff;
+  --jw-surface-container-low: #f5f1e8;
+  --jw-surface-container: #efeae0;
+  --jw-surface-container-high: #e8e2d4;
+  --jw-surface-container-highest: #e1dac8;
+  --jw-surface-variant: #e1dac8;
+  --jw-on-surface: #201c15;
+  --jw-on-surface-variant: #56503f;
+  --jw-outline: #877e6a;
+  --jw-outline-variant: #d6ccb4;
+  --jw-primary: #0b6b4a;
+  --jw-on-primary: #ffffff;
+  --jw-primary-container: #128f63;
+  --jw-on-primary-container: #f2fff8;
+  --jw-primary-fixed: #8ff0c4;
+  --jw-primary-fixed-dim: #159a6b;
+  --jw-on-primary-fixed: #002e1c;
+  --jw-inverse-primary: #6fe3ac;
+  --jw-secondary: #0b6e85;
+  --jw-on-secondary: #ffffff;
+  --jw-secondary-container: #0e8aa6;
+  --jw-on-secondary-container: #f0fcff;
+  --jw-secondary-fixed: #9fe6f5;
+  --jw-tertiary: #8a5a00;
+  --jw-on-tertiary: #ffffff;
+  --jw-tertiary-container: #a5710a;
+  --jw-on-tertiary-container: #fff8ec;
+  --jw-tertiary-fixed: #ffdda0;
+  --jw-error: #b3271e;
+  --jw-on-error: #ffffff;
+  --jw-error-container: #ffdad4;
+  --jw-on-error-container: #8c1d14;
+  --jw-shadow-color: 32 26 16;
+  --jw-shadow-strength: 0.1;
+}
+
+.dark {
+  --jw-background: #14120f;
+  --jw-on-background: #ece7de;
+  --jw-surface: #14120f;
+  --jw-surface-dim: #14120f;
+  --jw-surface-bright: #3a362f;
+  --jw-surface-container-lowest: #0b0a08;
+  --jw-surface-container-low: #1b1815;
+  --jw-surface-container: #211e19;
+  --jw-surface-container-high: #2b2721;
+  --jw-surface-container-highest: #36312a;
+  --jw-surface-variant: #36312a;
+  --jw-on-surface: #ece7de;
+  --jw-on-surface-variant: #c7beb0;
+  --jw-outline: #948a7b;
+  --jw-outline-variant: #453f36;
+  --jw-primary: #3fbe8d;
+  --jw-on-primary: #06281b;
+  --jw-primary-container: #1f8f66;
+  --jw-on-primary-container: #e8fff3;
+  --jw-primary-fixed: #8ff0c4;
+  --jw-primary-fixed-dim: #37b888;
+  --jw-on-primary-fixed: #002e1c;
+  --jw-inverse-primary: #0b6b4a;
+  --jw-secondary: #4fc3db;
+  --jw-on-secondary: #04333d;
+  --jw-secondary-container: #1d8aa3;
+  --jw-on-secondary-container: #e4f9ff;
+  --jw-secondary-fixed: #9fe6f5;
+  --jw-tertiary: #e0a94a;
+  --jw-on-tertiary: #3a2500;
+  --jw-tertiary-container: #b3811f;
+  --jw-on-tertiary-container: #fff3de;
+  --jw-tertiary-fixed: #ffdda0;
+  --jw-error: #ffb4a8;
+  --jw-on-error: #650f08;
+  --jw-error-container: #8c1d14;
+  --jw-on-error-container: #ffdad4;
+  --jw-shadow-color: 0 0 0;
+  --jw-shadow-strength: 0.4;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  background: var(--jw-surface);
+  color: var(--jw-on-surface);
+  font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
-/* Toast animation */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  line-height: 1;
+}
+
+.font-display,
+.font-headline-lg,
+.font-headline-md,
+.font-headline-sm,
+.font-label-caps {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.font-body-lg,
+.font-body-md,
+.font-body-sm {
+  font-family: Inter, sans-serif;
+}
+
+.font-mono-data,
+.font-mono-sm {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.text-display {
+  font-size: 2.75rem;
+  line-height: 3.1rem;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.text-headline-lg {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.text-headline-md {
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-headline-sm {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-size: 1rem;
+  line-height: 1.625rem;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+}
+
+.text-mono-data {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.text-mono-sm {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 400;
+}
+
+.text-label-caps {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
 @keyframes animate-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-in {
   animation: animate-in 0.2s ease-out;
 }
 
-@keyframes slide-in-from-right {
-  from {
-    opacity: 0;
-    transform: translateX(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.slide-in-from-right {
-  animation: slide-in-from-right 0.2s ease-out;
-}
-
-/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-/* Focus styles */
-*:focus-visible {
-  outline: 2px solid #06b6d4;
-  outline-offset: 2px;
-}
-
-/* Selection */
 ::selection {
-  background-color: #06b6d433;
-  color: #e2e8f0;
+  background-color: color-mix(in srgb, var(--jw-primary-container) 40%, transparent);
+  color: var(--jw-on-primary-container);
 }
 
-/* Smooth transitions for interactive elements */
-a, button {
-  transition-property: color, background-color, border-color, opacity;
-  transition-duration: 150ms;
-  transition-timing-function: ease;
+/* Elevation — sombras neutras de profundidade, sem "glow" colorido */
+.shadow-elevation-1 {
+  box-shadow: 0 1px 2px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 0.5)),
+    0 1px 1px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 0.35));
+}
+
+.shadow-elevation-2 {
+  box-shadow: 0 6px 16px -6px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 1.3)),
+    0 2px 6px -2px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 0.9));
+}
+
+.shadow-elevation-3 {
+  box-shadow: 0 20px 40px -16px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 1.6)),
+    0 6px 12px -6px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 1.1));
+}
+
+/* Sombra de acento sutil para CTAs — substitui o antigo glow neon hardcoded */
+.shadow-accent-primary {
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--jw-primary) 55%, transparent),
+    0 2px 6px -2px rgba(var(--jw-shadow-color) / calc(var(--jw-shadow-strength) * 0.8));
+}
+
+/* Aresta superior sutil — dá um acabamento "material" aos cards de destaque */
+.edge-top-primary {
+  position: relative;
+}
+.edge-top-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  border-radius: 9999px 9999px 0 0;
+  background: linear-gradient(90deg, var(--jw-primary), transparent 85%);
+  opacity: 0.7;
+}
+
+/* Textura de radar sutil para heroes — substitui os blobs de gradiente borrado */
+.bg-radar-grid {
+  background-image:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--jw-primary) 16%, transparent), transparent 60%),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--jw-outline) 10%, transparent) 0, transparent 1px 40px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--jw-outline) 10%, transparent) 0, transparent 1px 40px);
+  background-position: right top, right top, right top;
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  mask-image: linear-gradient(120deg, transparent 0%, black 35%, black 100%);
 }

@@ -8,24 +8,42 @@ interface BadgeProps {
 }
 
 const badgeVariants = {
-  default: 'bg-slate-700 text-slate-300',
-  success: 'bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/20',
-  warning: 'bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/20',
-  danger: 'bg-red-500/15 text-red-400 ring-1 ring-red-500/20',
-  info: 'bg-cyan-500/15 text-cyan-400 ring-1 ring-cyan-500/20',
-  neutral: 'bg-slate-500/15 text-slate-400 ring-1 ring-slate-500/20',
+  default: 'bg-surface-container-high text-on-surface border border-outline-variant/25',
+  success: 'bg-primary-container/15 text-primary border border-primary-container/30',
+  warning: 'bg-tertiary-container/15 text-tertiary border border-tertiary-container/35',
+  danger: 'bg-error-container/15 text-error border border-error/30',
+  info: 'bg-secondary-container/15 text-secondary border border-secondary-container/30',
+  neutral: 'bg-surface-container text-on-surface-variant border border-outline-variant/20',
 };
 
 export function Badge({ children, variant = 'default', className }: BadgeProps) {
   return (
-    <span className={cn('inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium', badgeVariants[variant], className)}>
+    <span
+      className={cn(
+        'inline-flex items-center rounded-full px-2 py-0.5 font-mono-sm text-mono-sm font-semibold',
+        badgeVariants[variant],
+        className,
+      )}
+    >
       {children}
     </span>
   );
 }
 
-// Status-specific badges
-type StatusType = 'ACTIVE' | 'PAUSED' | 'ERROR' | 'NEW' | 'VIEWED' | 'APPLIED' | 'EXPIRED' | 'SENT' | 'FAILED' | 'PENDING' | 'READ' | 'SUCCESS' | 'RUNNING';
+type StatusType =
+  | 'ACTIVE'
+  | 'PAUSED'
+  | 'ERROR'
+  | 'NEW'
+  | 'VIEWED'
+  | 'APPLIED'
+  | 'EXPIRED'
+  | 'SENT'
+  | 'FAILED'
+  | 'PENDING'
+  | 'READ'
+  | 'SUCCESS'
+  | 'RUNNING';
 
 interface StatusBadgeProps {
   status: StatusType;
@@ -37,10 +55,10 @@ const statusConfig: Record<StatusType, { label: string; variant: BadgeProps['var
   ACTIVE: { label: 'Ativo', variant: 'success' },
   PAUSED: { label: 'Pausado', variant: 'warning' },
   ERROR: { label: 'Erro', variant: 'danger' },
-  NEW: { label: 'Novo', variant: 'info' },
+  NEW: { label: 'Novo', variant: 'success' },
   VIEWED: { label: 'Visualizado', variant: 'neutral' },
   APPLIED: { label: 'Candidatado', variant: 'success' },
-  EXPIRED: { label: 'Expirado', variant: 'neutral' },
+  EXPIRED: { label: 'Não apresentada', variant: 'warning' },
   SENT: { label: 'Enviado', variant: 'success' },
   FAILED: { label: 'Falhou', variant: 'danger' },
   PENDING: { label: 'Pendente', variant: 'warning' },
@@ -52,11 +70,11 @@ const statusConfig: Record<StatusType, { label: string; variant: BadgeProps['var
 export function StatusBadge({ status, withDot = true, className }: StatusBadgeProps) {
   const config = statusConfig[status];
   const dotColors: Record<string, string> = {
-    success: 'bg-emerald-400',
-    warning: 'bg-amber-400',
-    danger: 'bg-red-400',
-    info: 'bg-cyan-400',
-    neutral: 'bg-slate-400',
+    success: 'bg-primary',
+    warning: 'bg-tertiary',
+    danger: 'bg-error',
+    info: 'bg-secondary',
+    neutral: 'bg-outline',
   };
 
   return (

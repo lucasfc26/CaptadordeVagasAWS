@@ -10,6 +10,7 @@ describe('SearchesService', () => {
   let prisma: {
     search: {
       findUnique: jest.Mock;
+      findMany: jest.Mock;
       update: jest.Mock;
       delete: jest.Mock;
     };
@@ -29,6 +30,7 @@ describe('SearchesService', () => {
     prisma = {
       search: {
         findUnique: jest.fn(),
+        findMany: jest.fn(),
         update: jest.fn(),
         delete: jest.fn(),
       },
@@ -99,6 +101,20 @@ describe('SearchesService', () => {
       await service.resume('owner-id', 'search-1');
 
       expect(monitoringQueue.scheduleSearch).toHaveBeenCalledWith('search-1', 0);
+    });
+  });
+
+  describe('runNow', () => {
+    it('enfileira todas as buscas ativas do usuário', async () => {
+      prisma.search.findMany.mockResolvedValue([{ id: 'search-1' }, { id: 'search-2' }]);
+      prisma.search.update.mockResolvedValue({});
+
+      const result = await service.runNow('owner-id');
+
+      expect(result).toEqual({ queued: 2 });
+      expect(monitoringQueue.scheduleSearch).toHaveBeenCalledTimes(2);
+      expect(monitoringQueue.scheduleSearch).toHaveBeenNthCalledWith(1, 'search-1', 0);
+      expect(monitoringQueue.scheduleSearch).toHaveBeenNthCalledWith(2, 'search-2', 0);
     });
   });
 

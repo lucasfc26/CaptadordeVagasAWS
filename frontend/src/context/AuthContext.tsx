@@ -40,25 +40,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (credentials: LoginCredentials) => {
-    setIsLoading(true);
-    try {
-      const data = await authService.login(credentials);
-      localStorage.setItem('auth_token', data.accessToken);
-      setUser(data.user);
-    } finally {
-      setIsLoading(false);
-    }
+    const data = await authService.login(credentials);
+    localStorage.setItem('auth_token', data.accessToken);
+    setUser(data.user);
   }, []);
 
   const register = useCallback(async (data: RegisterData) => {
-    setIsLoading(true);
-    try {
-      const response = await authService.register(data);
-      localStorage.setItem('auth_token', response.accessToken);
-      setUser(response.user);
-    } finally {
-      setIsLoading(false);
-    }
+    const response = await authService.register(data);
+    localStorage.setItem('auth_token', response.accessToken);
+    setUser(response.user);
   }, []);
 
   const logout = useCallback(() => {

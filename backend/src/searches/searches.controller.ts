@@ -17,7 +17,9 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { SearchesService } from './searches.service';
+import { InspectApiService } from './inspect-api.service';
 import { CreateSearchDto } from './dto/create-search.dto';
+import { InspectApiDto } from './dto/inspect-api.dto';
 import { UpdateSearchDto } from './dto/update-search.dto';
 
 @ApiTags('searches')
@@ -25,11 +27,24 @@ import { UpdateSearchDto } from './dto/update-search.dto';
 @UseGuards(JwtAuthGuard)
 @Controller('searches')
 export class SearchesController {
-  constructor(private readonly searchesService: SearchesService) {}
+  constructor(
+    private readonly searchesService: SearchesService,
+    private readonly inspectApiService: InspectApiService,
+  ) {}
 
   @Post()
   create(@CurrentUser() user: User, @Body() dto: CreateSearchDto) {
     return this.searchesService.create(user.id, dto);
+  }
+
+  @Post('inspect-api')
+  inspectApi(@Body() dto: InspectApiDto) {
+    return this.inspectApiService.inspect(dto.url);
+  }
+
+  @Post('run-now')
+  runNow(@CurrentUser() user: User) {
+    return this.searchesService.runNow(user.id);
   }
 
   @Get()

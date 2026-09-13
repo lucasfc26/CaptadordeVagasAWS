@@ -20,6 +20,11 @@ export class UpdateSettingsDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsBoolean()
+  whatsappEnabled?: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
   newJobAlertEnabled?: boolean;
 
   @ApiPropertyOptional()

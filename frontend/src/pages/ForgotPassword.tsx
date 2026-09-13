@@ -1,15 +1,11 @@
-// ============================================
-// JobWatch - Forgot Password Page
-// ============================================
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 
 const schema = z.object({ email: z.string().email('Email inválido') });
 type FormData = z.infer<typeof schema>;
@@ -17,14 +13,13 @@ type FormData = z.infer<typeof schema>;
 export function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (_data: FormData) => {
+  const onSubmit = async () => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setSent(true);
     setLoading(false);
   };
@@ -32,15 +27,15 @@ export function ForgotPasswordPage() {
   if (sent) {
     return (
       <div className="space-y-4 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
-          <Mail className="h-6 w-6" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-container/20 text-primary">
+          <Icon name="mail" className="text-[24px]" />
         </div>
-        <h2 className="text-xl font-semibold text-slate-100">Email enviado</h2>
-        <p className="text-sm text-slate-400">
+        <h2 className="font-headline-md text-headline-md text-on-surface">Email enviado</h2>
+        <p className="font-body-md text-body-md text-on-surface-variant">
           Se o email estiver cadastrado, você receberá instruções para redefinir sua senha.
         </p>
-        <Link to="/login" className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 transition-colors">
-          <ArrowLeft className="h-3.5 w-3.5" />
+        <Link to="/login" className="inline-flex items-center gap-1 font-body-sm text-body-sm text-primary">
+          <Icon name="arrow_back" className="text-[16px]" />
           Voltar ao login
         </Link>
       </div>
@@ -48,18 +43,18 @@ export function ForgotPasswordPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h2 className="text-xl font-semibold text-slate-100">Recuperar senha</h2>
-        <p className="text-sm text-slate-400">Informe seu email para redefinir a senha</p>
+    <div className="space-y-space-lg">
+      <div>
+        <h2 className="font-headline-md text-headline-md text-on-surface">Recuperar senha</h2>
+        <p className="font-body-md text-body-md text-on-surface-variant">Informe seu email para redefinir a senha</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <Input label="Email" type="email" placeholder="seu@email.com" icon={<Mail className="h-4 w-4" />} error={errors.email?.message} {...register('email')} />
+        <Input label="Email" type="text" placeholder="seu@email.com" mask="email" autoComplete="email" icon={<Icon name="mail" className="text-[16px]" />} error={errors.email?.message} {...register('email')} />
         <Button type="submit" loading={loading} className="w-full">Enviar</Button>
       </form>
-      <p className="text-center text-sm text-slate-400">
-        <Link to="/login" className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors">
-          <ArrowLeft className="h-3.5 w-3.5" />
+      <p className="text-center">
+        <Link to="/login" className="inline-flex items-center gap-1 font-body-sm text-body-sm text-primary">
+          <Icon name="arrow_back" className="text-[16px]" />
           Voltar ao login
         </Link>
       </p>

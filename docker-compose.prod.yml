@@ -25,6 +25,11 @@ services:
     restart: always
     environment:
       NODE_ENV: production
+      WAREHOUSE_EXTRACTOR_URL: http://warehouse-extractor:8100
+
+  warehouse-extractor:
+    restart: always
+    ports: !reset []
 
   frontend:
     build:

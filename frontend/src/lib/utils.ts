@@ -9,6 +9,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function formatUntil(date: string | Date): string {
+  const target = new Date(date);
+  const diffMs = target.getTime() - Date.now();
+  if (diffMs <= 0) return 'agora';
+  const minutes = Math.floor(diffMs / 60000);
+  if (minutes < 60) return `em ${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `em ${hours}h`;
+  return `em ${Math.floor(hours / 24)}d`;
+}
+
 export function formatRelativeTime(date: string | Date): string {
   const now = new Date();
   const target = new Date(date);
@@ -90,6 +101,23 @@ export function getErrorMessage(error: unknown, fallback = 'Ocorreu um erro ines
     if (typeof message === 'string') return message;
   }
   return fallback;
+}
+
+export async function shareOrCopy(data: { title: string; text?: string; url: string }): Promise<'shared' | 'copied' | 'cancelled' | 'failed'> {
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share(data);
+      return 'shared';
+    } catch (error) {
+      return error instanceof DOMException && error.name === 'AbortError' ? 'cancelled' : 'failed';
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(data.url);
+    return 'copied';
+  } catch {
+    return 'failed';
+  }
 }
 
 export function buildQueryString(params: Record<string, unknown>): string {

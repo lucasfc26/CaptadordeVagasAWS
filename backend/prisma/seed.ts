@@ -12,6 +12,7 @@ async function main() {
     create: {
       name: 'Lucas Cunha',
       email: 'dev@jobwatch.com',
+      phone: '+5511999999999',
       passwordHash,
       timezone: 'America/Los_Angeles',
       settings: { create: {} },

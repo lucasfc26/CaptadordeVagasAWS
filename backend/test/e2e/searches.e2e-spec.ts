@@ -25,7 +25,7 @@ describe('Searches (e2e)', () => {
   async function registerAndGetToken(email: string): Promise<string> {
     const response = await request(server)
       .post('/api/auth/register')
-      .send({ name: 'Owner', email, password: 'password123' })
+      .send({ name: 'Owner', email, phone: '11988887777', password: 'password123' })
       .expect(201);
     return response.body.accessToken as string;
   }

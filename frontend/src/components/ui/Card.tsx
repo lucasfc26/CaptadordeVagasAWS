@@ -1,25 +1,14 @@
 import { cn } from '@/lib/utils';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes } from 'react';
 
-interface CardProps {
-  children: ReactNode;
-  className?: string;
-  hover?: boolean;
-  onClick?: () => void;
-}
-
-export function Card({ children, className, hover, onClick }: CardProps) {
+export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
-        'rounded-lg border border-slate-800 bg-slate-900/50',
-        hover && 'cursor-pointer transition-colors hover:border-slate-700 hover:bg-slate-800/50',
-        onClick && 'cursor-pointer',
-        className
+        'rounded-2xl border border-outline-variant/15 bg-surface-container-low p-space-md shadow-elevation-1',
+        className,
       )}
-      onClick={onClick}
-    >
-      {children}
-    </div>
+      {...props}
+    />
   );
 }

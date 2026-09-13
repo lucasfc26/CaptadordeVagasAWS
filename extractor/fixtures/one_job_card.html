@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Amazon job search — 1 job</title>
+  </head>
+  <body>
+    <p>Total 1 job found</p>
+    <div id="results"></div>
+    <script>
+      const _attachShadow = Element.prototype.attachShadow;
+      Element.prototype.attachShadow = function (init) {
+        const shadowRoot = _attachShadow.call(this, init);
+        Object.defineProperty(this, "shadowRootUnl", { configurable: true, value: shadowRoot });
+        return shadowRoot;
+      };
+      const host = document.getElementById("results");
+      const shadow = host.attachShadow({ mode: "closed" });
+      shadow.innerHTML = `
+        <article data-test-id="jobSearchResultItem">
+          <a data-test-id="jobCard" href="#/jobDetail?jobId=JOB-US-0000018326&locale=en-US">
+            <h2>Warehouse Equipment Operator</h2>
+            <p>1 shift available</p>
+            <p>Type: Full time</p>
+            <p>Duration: Seasonal</p>
+            <div id="pay-host"></div>
+            <p>Shippensburg, PA</p>
+          </a>
+        </article>
+      `;
+      const payHost = shadow.getElementById("pay-host");
+      const payShadow = payHost.attachShadow({ mode: "closed" });
+      payShadow.innerHTML = `
+        <div data-test-component="StencilText" class="jobDetailText hvh-careers-emotion-zsqxjt">
+          <strong>Pay rate:</strong> Up to $21.25
+        </div>
+      `;
+    </script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { AppConfigService } from '../config/app-config.service';
-import { MONITORING_QUEUE, NOTIFICATIONS_QUEUE } from './queue.constants';
+import { MONITORING_QUEUE, NOTIFICATIONS_QUEUE, WAREHOUSE_MONITORING_QUEUE } from './queue.constants';
 
 @Global()
 @Module({
@@ -23,7 +23,11 @@ import { MONITORING_QUEUE, NOTIFICATIONS_QUEUE } from './queue.constants';
         },
       }),
     }),
-    BullModule.registerQueue({ name: MONITORING_QUEUE }, { name: NOTIFICATIONS_QUEUE }),
+    BullModule.registerQueue(
+      { name: MONITORING_QUEUE },
+      { name: WAREHOUSE_MONITORING_QUEUE },
+      { name: NOTIFICATIONS_QUEUE },
+    ),
   ],
   exports: [BullModule],
 })

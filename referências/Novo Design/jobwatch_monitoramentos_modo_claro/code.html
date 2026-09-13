@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-container":"#f5fff7","tertiary-fixed-dim":"#ffb77d","outline":"#6d7a72","background":"#faf8ff","surface-dim":"#d2d9f4","primary":"#006948","on-surface-variant":"#3d4a42","surface-container":"#eaedff","on-tertiary-fixed":"#2f1500","surface-container-high":"#e2e7ff","inverse-surface":"#283044","secondary-container":"#5bb8fe","tertiary-fixed":"#ffdcc3","on-error":"#ffffff","on-tertiary":"#ffffff","surface":"#faf8ff","on-primary-fixed":"#002114","outline-variant":"#bccac0","primary-fixed":"#85f8c4","primary-container":"#00855d","tertiary":"#8d4b00","on-error-container":"#93000a","surface-container-low":"#f2f3ff","secondary-fixed":"#cce5ff","on-background":"#131b2e","error":"#ba1a1a","on-secondary-fixed-variant":"#004b73","error-container":"#ffdad6","surface-container-highest":"#dae2fd","inverse-on-surface":"#eef0ff","surface-container-lowest":"#ffffff","tertiary-container":"#b15f00","on-secondary-fixed":"#001d31","on-primary-fixed-variant":"#005137","on-secondary":"#ffffff","on-secondary-container":"#00476e","on-tertiary-container":"#fffbff","primary-fixed-dim":"#68dba9","on-surface":"#131b2e","secondary-fixed-dim":"#93ccff","surface-tint":"#006c4a","on-tertiary-fixed-variant":"#6e3900","on-primary":"#ffffff","secondary":"#006398","inverse-primary":"#68dba9","surface-variant":"#dae2fd","surface-bright":"#faf8ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"1rem","space-2xl":"2rem",margin:"1rem","space-md":"0.75rem","space-xs":"0.25rem","space-lg":"1rem","space-3xl":"3rem","gutter-lg":"1.5rem","space-xl":"1.5rem","margin-md":"1.5rem","space-sm":"0.5rem","margin-lg":"2.5rem","space-2xs":"0.125rem"},fontFamily:{"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"mono-data":["JetBrains Mono"],"display-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"]},fontSize:{"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-lg":["28px",{lineHeight:"34px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"display-lg-mobile":["30px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"headline-md":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"mono-data":["12px",{lineHeight:"16px",fontWeight:"500"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"700"}],"title-md":["15px",{lineHeight:"20px",letterSpacing:"-0.005em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-outline-variant/20"><img alt="JobWatch Logo Light" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WvE_GlEY8NEA1xtyC_0hGRWthpcsshHISyAuC-bcBxZjsmFESIAzwDlAE7MYI8m_ZAjYRAiSqbDWbvSuWuytDB7hDgDHuvSGFNMra90S7aQPHIORBxocGWVed2NqEBvpokNo3qwBwAZ3n5eQbaPfXSX_EkBgsaFPspiCJipaYih6J0dwID0TPutYnHzcsv6eOkjywHJplywiI-g_5LUTazhnREWjYE0ydrhqqroAZcOwUzXn0FdxiMrwH6"/><div class="flex flex-col"><span class="font-title-md text-title-md font-bold text-on-surface tracking-tight leading-none">JobWatch</span><span class="font-label-sm text-[10px] text-primary font-semibold tracking-wider uppercase mt-1">Amazon Radar</span></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-lg"><div class="space-y-space-xs"><span class="px-space-sm font-label-sm text-label-sm font-semibold tracking-wider text-outline uppercase">Operações</span><nav class="mt-space-xs space-y-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">dashboard</span><span class="font-body-md text-body-md font-medium">Dashboard</span></div></a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="vagas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">work</span><span class="font-body-md text-body-md font-medium">Vagas</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-semibold">12</span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-2 transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="monitoramentos" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">radar</span><span class="font-body-md text-body-md font-medium">Monitoramentos</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold">2</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notificacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="font-body-md text-body-md font-medium">Notificações</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">3</span></a></nav></div><div class="space-y-space-xs"><span class="px-space-sm font-label-sm text-label-sm font-semibold tracking-wider text-outline uppercase">Sistema</span><nav class="mt-space-xs space-y-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">settings</span><span class="font-body-md text-body-md font-medium">Configurações</span></div></a></nav></div></div></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest space-y-space-md"><div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant/20 flex flex-col gap-1"><div class="flex items-center justify-between"><span class="font-mono-data text-[10px] uppercase tracking-wider text-outline font-semibold">Engine Status</span><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span></div><div class="flex items-center justify-between text-on-surface"><span class="font-mono-data text-label-sm font-bold text-primary">Online</span><span class="font-mono-data text-label-sm text-on-surface-variant">99.98% Uptime</span></div></div><div class="flex items-center justify-between pt-1"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-semibold text-label-sm shrink-0 border border-outline-variant/30">LR</div><div class="flex flex-col min-w-0"><span class="font-title-md text-body-md font-semibold text-on-surface truncate">Lucas Rocha</span><span class="font-label-sm text-[11px] text-outline truncate">lucas@jobwatch.io</span></div></div><a class="p-1.5 rounded-md text-outline hover:text-error hover:bg-surface-container transition-colors shrink-0" data-path="logout" href="#" title="Sair"><span class="material-symbols-outlined text-[18px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/20 z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="inline-flex items-center gap-2 px-space-md py-1 rounded-full bg-primary-fixed/30 border border-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-medium"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span><span>Monitoramento Ativo (Freq: 15 min)</span></div><div class="hidden xl:flex items-center gap-space-md font-mono-data text-label-sm text-on-surface-variant border-l border-outline-variant/30 pl-space-lg"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-outline">history</span><span>Varredura: <strong class="text-on-surface font-semibold">há 2 min</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-outline">update</span><span>Próxima: <strong class="text-on-surface font-semibold">em 13 min</strong></span></div></div></div><div class="flex items-center gap-space-md"><button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-lowest border border-outline-variant/50 text-on-surface hover:bg-surface-container-low hover:border-outline-variant transition-colors font-label-md text-label-md font-medium shadow-sm" type="button"><span class="material-symbols-outlined text-[16px] text-outline">sync</span><span>Forçar Varredura</span></button><button class="inline-flex items-center gap-2 px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary transition-all font-label-md text-label-md font-semibold shadow-sm" type="button"><span class="material-symbols-outlined text-[18px]">add</span><span>Nova Busca</span><kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono-data bg-on-primary/20 text-on-primary rounded">⌘K</kbd></button><div class="h-6 w-px bg-outline-variant/30 mx-1"></div><a aria-label="Notificações" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notificacoes" href="#"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Context Bar & Action Canvas -->
+<div class="px-space-lg sm:px-margin-lg py-space-xl flex flex-col gap-space-xl">
+<!-- Top Level Operational Command Strip -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-lg bg-surface-container-lowest p-space-xl rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Monitoramentos Ativos</h1>
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-label-sm font-semibold">
+<span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            2 Buscas em Execução
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Gerenciamento de rotinas automatizadas de varredura e alertas em tempo real.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-2 px-space-lg py-2.5 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md font-medium shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-outline">pause_circle</span>
+<span>Pausar Todas as Buscas</span>
+</button>
+<button class="inline-flex items-center gap-2 px-space-lg py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary transition-all font-label-md text-label-md font-semibold shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Criar Nova Busca</span>
+</button>
+</div>
+</div>
+<!-- Telemetry & Operational Health KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Metric 1: Daemon -->
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary-fixed/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm uppercase tracking-wider text-outline">Daemon de Varredura</span>
+<span class="material-symbols-outlined text-primary text-[20px]">smart_toy</span>
+</div>
+<div class="mt-space-md">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">Ativo (v1.2)</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data text-label-sm font-semibold text-primary">99.8% Taxa de Sucesso</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-outline">Zero falhas críticas</span>
+</div>
+</div>
+<div class="mt-space-md w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 99.8%;"></div>
+</div>
+</div>
+<!-- Metric 2: Operational Cadence -->
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-secondary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm uppercase tracking-wider text-outline">Cadência Operacional</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">timelapse</span>
+</div>
+<div class="mt-space-md">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">15 min <span class="font-body-md text-body-md text-outline font-normal">(Média)</span></div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data text-label-sm font-semibold text-secondary">96 checagens / dia</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-outline">Loop contínuo</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center gap-1">
+<span class="h-1.5 flex-1 bg-secondary rounded-full"></span>
+<span class="h-1.5 flex-1 bg-secondary rounded-full"></span>
+<span class="h-1.5 flex-1 bg-secondary rounded-full"></span>
+<span class="h-1.5 flex-1 bg-surface-container-high rounded-full"></span>
+</div>
+</div>
+<!-- Metric 3: Dispatch Routing -->
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-tertiary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono-data text-label-sm uppercase tracking-wider text-outline">Despacho de Alertas</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">notifications_active</span>
+</div>
+<div class="mt-space-md">
+<div class="font-headline-md text-headline-md font-bold text-on-surface">2 Ativos <span class="font-body-md text-body-md text-primary font-medium">(Operante)</span></div>
+<div class="flex items-center gap-1 mt-1 font-mono-data text-label-sm text-on-surface-variant">
+<span class="font-medium text-on-surface">Email</span>
+<span class="text-outline-variant">•</span>
+<span class="font-medium text-on-surface">Push Webhook</span>
+<span class="text-outline-variant">•</span>
+<span class="font-medium text-outline">Telegram</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center justify-between text-label-sm text-outline font-mono-data">
+<span>Buffer: Instantâneo</span>
+<span class="text-primary font-semibold">TLL: 0s</span>
+</div>
+</div>
+</div>
+<!-- Custom Routines Header Strip -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-title-lg text-title-lg font-bold text-on-surface">Rotinas Customizadas</span>
+<span class="font-mono-data text-label-sm px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-semibold">3 Rotinas</span>
+</div>
+<div class="inline-flex items-center gap-1.5 font-mono-data text-label-sm text-outline bg-surface-container-lowest px-space-md py-1 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">speed</span>
+<span>Latência Global Média: <strong class="text-on-surface font-semibold">412ms</strong></span>
+</div>
+</div>
+<!-- 3 Custom Monitoring Routines (Cards Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1: Active 15m -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-sm relative group hover:shadow-md transition-all">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-[11px] font-bold tracking-wider">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-ping"></span>
+              ACTIVE • 15 min
+            </div>
+<span class="font-mono-data text-label-sm text-outline font-semibold">AMZ-W1</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md font-bold text-on-surface leading-tight">Amazon Warehouse — Richmond &amp; Bay Area</h2>
+<div class="mt-space-xs flex items-center gap-1.5 text-outline font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Raio: Richmond, CA + 25 mi</span>
+</div>
+</div>
+<!-- Cities / Targets -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-md rounded-lg">
+<span class="font-mono-data text-[10px] uppercase tracking-wider text-outline font-bold">Localidades no Escopo</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-relaxed">
+              Richmond, San Pablo, Pinole, Hercules, El Cerrito
+            </p>
+<div class="flex items-center gap-1 flex-wrap pt-1">
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">OAK4</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">OAK6</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">DSF8</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">SF05</span>
+</div>
+</div>
+<!-- Telemetry status -->
+<div class="grid grid-cols-2 gap-space-sm py-space-xs font-mono-data text-label-sm">
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Encontradas Hoje</span>
+<span class="text-on-surface font-bold text-body-lg text-primary">9 vagas ativas</span>
+</div>
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Próxima Varredura</span>
+<span class="text-on-surface font-bold text-body-lg">em 13 min</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-outline font-mono-data text-[11px]">
+<span>Última checagem: há 2 min</span>
+<span class="text-primary font-medium">HTTP 200 (382ms)</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="pt-space-lg mt-space-md flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-colors" title="Pausar" type="button">
+<span class="material-symbols-outlined text-[18px]">pause</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary transition-colors" title="Forçar Varredura" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-colors" title="Editar Rotina" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Logs</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Active 30m -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-sm relative group hover:shadow-md transition-all">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-[11px] font-bold tracking-wider">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-ping"></span>
+              ACTIVE • 30 min
+            </div>
+<span class="font-mono-data text-label-sm text-outline font-semibold">AMZ-D2</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md font-bold text-on-surface leading-tight">East Bay Delivery Stations</h2>
+<div class="mt-space-xs flex items-center gap-1.5 text-outline font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Raio: San Pablo &amp; Pinole + 15 mi</span>
+</div>
+</div>
+<!-- Cities / Targets -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-md rounded-lg">
+<span class="font-mono-data text-[10px] uppercase tracking-wider text-outline font-bold">Localidades no Escopo</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-relaxed">
+              San Pablo, Pinole &amp; Centro Operacional Leste
+            </p>
+<div class="flex items-center gap-1 flex-wrap pt-1">
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">DSF8</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">DF02</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">DFX3</span>
+</div>
+</div>
+<!-- Telemetry status -->
+<div class="grid grid-cols-2 gap-space-sm py-space-xs font-mono-data text-label-sm">
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Encontradas Hoje</span>
+<span class="text-on-surface font-bold text-body-lg text-primary">3 vagas ativas</span>
+</div>
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Próxima Varredura</span>
+<span class="text-on-surface font-bold text-body-lg">em 8 min</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-outline font-mono-data text-[11px]">
+<span>Última checagem: há 22 min</span>
+<span class="text-primary font-medium">HTTP 200 (445ms)</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="pt-space-lg mt-space-md flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-colors" title="Pausar" type="button">
+<span class="material-symbols-outlined text-[18px]">pause</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary transition-colors" title="Forçar Varredura" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-colors" title="Editar Rotina" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Logs</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Paused -->
+<div class="bg-surface-container-lowest rounded-xl p-space-xl flex flex-col justify-between shadow-sm relative group opacity-90 hover:opacity-100 transition-all">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-mono-data text-[11px] font-bold tracking-wider">
+<span class="h-1.5 w-1.5 rounded-full bg-tertiary"></span>
+              PAUSED • Inativo
+            </div>
+<span class="font-mono-data text-label-sm text-outline font-semibold">AMZ-SB3</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md font-bold text-on-surface leading-tight">South Bay &amp; Peninsula</h2>
+<div class="mt-space-xs flex items-center gap-1.5 text-outline font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Raio Hayward &amp; Fremont (35 mi)</span>
+</div>
+</div>
+<!-- Cities / Targets -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-md rounded-lg">
+<span class="font-mono-data text-[10px] uppercase tracking-wider text-outline font-bold">Status Operacional</span>
+<p class="font-body-md text-body-md text-on-surface-variant font-normal leading-relaxed">
+              Parado temporariamente pelo usuário. Nenhum token de requisição consumido.
+            </p>
+<div class="flex items-center gap-1 flex-wrap pt-1 opacity-60">
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container text-on-surface">OAK3</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container text-on-surface">SJC7</span>
+<span class="font-mono-data text-[11px] px-2 py-0.5 rounded bg-surface-container text-on-surface">DSJ5</span>
+</div>
+</div>
+<!-- Telemetry status -->
+<div class="grid grid-cols-2 gap-space-sm py-space-xs font-mono-data text-label-sm opacity-75">
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Última Execução</span>
+<span class="text-on-surface font-semibold text-body-md">Há 2 dias</span>
+</div>
+<div class="bg-surface-container-low/60 p-space-sm rounded-lg flex flex-col">
+<span class="text-outline text-[11px]">Vagas em Cache</span>
+<span class="text-on-surface font-semibold text-body-md">0 mantidas</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-outline font-mono-data text-[11px]">
+<span>Engine: Em repouso</span>
+<span class="text-outline font-medium">Standby Mode</span>
+</div>
+</div>
+<!-- Controls for Paused Card -->
+<div class="pt-space-lg mt-space-md flex items-center justify-between gap-space-sm">
+<button class="inline-flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Retomar Monitoramento</span>
+</button>
+<button class="p-2 rounded-lg text-error hover:bg-error-container/30 transition-colors" title="Excluir Rotina" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Visual Infrastructure Banner / Network Health Indicators -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="h-10 w-10 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[22px]">dns</span>
+</div>
+<div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Histórico de Execuções &amp; Scraping Health Check</span>
+<p class="font-body-md text-body-md text-outline">Logs em tempo real com validação e integridade de proxies residenciais.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="inline-flex items-center gap-2 px-space-md py-1.5 rounded-lg bg-surface-container-low font-mono-data text-label-sm text-on-surface">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span>Residencial Proxies: <strong class="text-primary font-semibold">100% OK</strong></span>
+</div>
+<div class="inline-flex items-center gap-2 px-space-md py-1.5 rounded-lg bg-surface-container-low font-mono-data text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">public</span>
+<span>DNS Resolver: <strong class="font-semibold">1.1.1.1</strong> (8ms)</span>
+</div>
+</div>
+</div>
+<!-- Scraping Health Check & Execution Log Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-outline font-mono-data text-label-sm uppercase tracking-wider">
+<th class="py-space-md px-space-lg font-semibold">Horário</th>
+<th class="py-space-md px-space-lg font-semibold">Rotina / Target</th>
+<th class="py-space-md px-space-lg font-semibold">Resultado</th>
+<th class="py-space-md px-space-lg font-semibold">HTTP Status</th>
+<th class="py-space-md px-space-lg font-semibold">Latência</th>
+<th class="py-space-md px-space-lg font-semibold">Diagnóstico</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg font-mono-data text-label-sm text-outline font-medium">
+                21:40:12
+              </td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">Richmond &amp; Bay Area</span>
+<span class="font-mono-data text-[10px] px-1.5 py-0.5 rounded bg-surface-container text-outline">AMZ-W1</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-label-sm font-semibold">
+<span>12 vagas encontradas</span>
+<span class="font-bold text-primary">(+3 novas)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 font-mono-data text-label-sm font-bold text-primary">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                  200 OK
+                </span>
+</td>
+<td class="py-space-md px-space-lg font-mono-data text-label-sm font-medium text-on-surface">
+                382ms
+              </td>
+<td class="py-space-md px-space-lg font-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">send</span>
+<span>Digest enviado via Telegram</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg font-mono-data text-label-sm text-outline font-medium">
+                21:25:08
+              </td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">Richmond &amp; Bay Area</span>
+<span class="font-mono-data text-[10px] px-1.5 py-0.5 rounded bg-surface-container text-outline">AMZ-W1</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-mono-data text-label-sm">
+<span>9 vagas encontradas</span>
+<span class="text-outline">(0 novas)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 font-mono-data text-label-sm font-bold text-primary">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                  200 OK
+                </span>
+</td>
+<td class="py-space-md px-space-lg font-mono-data text-label-sm font-medium text-on-surface">
+                410ms
+              </td>
+<td class="py-space-md px-space-lg font-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">cached</span>
+<span>Cache delta mantido</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg font-mono-data text-label-sm text-outline font-medium">
+                21:10:44
+              </td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">East Bay Delivery</span>
+<span class="font-mono-data text-[10px] px-1.5 py-0.5 rounded bg-surface-container text-outline">AMZ-D2</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-mono-data text-label-sm font-semibold">
+<span>3 vagas encontradas</span>
+<span class="font-bold text-secondary">(+1 nova)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 font-mono-data text-label-sm font-bold text-primary">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                  200 OK
+                </span>
+</td>
+<td class="py-space-md px-space-lg font-mono-data text-label-sm font-medium text-on-surface">
+                445ms
+              </td>
+<td class="py-space-md px-space-lg font-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">webhook</span>
+<span>Push Webhook disparado</span>
+</td>
+</tr>
+<!-- Row 4: Auto-Recovery System -->
+<tr class="hover:bg-surface-container-low/50 transition-colors bg-tertiary-fixed/10">
+<td class="py-space-md px-space-lg font-mono-data text-label-sm text-outline font-medium">
+                20:55:02
+              </td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-tertiary">Auto-Recovery System</span>
+<span class="font-mono-data text-[10px] px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold">DAEMON</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-tertiary-fixed/30 text-tertiary font-mono-data text-label-sm">
+<span>Alerta de latência mitigado (&gt;900ms)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center gap-1 font-mono-data text-label-sm font-bold text-tertiary">
+<span class="h-1.5 w-1.5 rounded-full bg-tertiary"></span>
+                  302 REDIR
+                </span>
+</td>
+<td class="py-space-md px-space-lg font-mono-data text-label-sm font-bold text-tertiary">
+                912ms
+              </td>
+<td class="py-space-md px-space-lg font-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">autorenew</span>
+<span>Proxy rotacionado com sucesso</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Telemetry status bar -->
+<div class="py-space-sm px-space-lg bg-surface-container-low flex items-center justify-between text-outline font-mono-data text-label-sm">
+<div class="flex items-center gap-space-sm">
+<span>Exibindo 4 últimas iterações de rotina</span>
+<span>•</span>
+<span class="text-primary font-medium">Stream sincronizado via SSE</span>
+</div>
+<button class="text-primary hover:text-primary-container font-semibold inline-flex items-center gap-1" type="button">
+<span>Ver log completo (syslog)</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

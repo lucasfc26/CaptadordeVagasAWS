@@ -16,13 +16,17 @@ function resolveStatus(job: JobWithRelations, userState?: JobUserState): JobStat
 
 export function jobToResponse(job: JobWithRelations, userId: string) {
   const userState = job.jobUserStates.find((s) => s.userId === userId);
+  const cityState = [job.city, job.state].filter(Boolean).join(', ');
+  const rawLocation = (job.location || '').trim();
+  const address =
+    rawLocation && rawLocation !== cityState && rawLocation !== job.city ? rawLocation : undefined;
 
   return {
     id: job.id,
     title: job.title,
     company: job.company,
     facility: job.company,
-    location: { city: job.city, state: job.state },
+    location: { city: job.city, state: job.state, address },
     jobType: job.jobType,
     description: job.description ?? undefined,
     requirements: job.requirements,
@@ -33,6 +37,7 @@ export function jobToResponse(job: JobWithRelations, userId: string) {
     status: resolveStatus(job, userState),
     searchId: job.jobSearches[0]?.searchId,
     foundAt: job.firstSeenAt,
+    lastSeenAt: job.lastSeenAt,
     viewedAt: userState?.viewedAt ?? undefined,
     appliedAt: userState?.appliedAt ?? undefined,
   };

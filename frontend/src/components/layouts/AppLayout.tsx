@@ -1,26 +1,41 @@
-// ============================================
-// JobWatch - App Layout (Authenticated)
-// ============================================
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { NewSearchProvider, useNewSearch } from '@/context/NewSearchContext';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 
-export function AppLayout() {
+function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { openNewSearch } = useNewSearch();
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openNewSearch();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [openNewSearch]);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-950">
+    <div className="min-h-screen bg-surface text-on-surface">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-screen flex-col lg:pl-72">
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-6xl px-4 py-6 lg:px-6">
-            <Outlet />
-          </div>
+        <main className="w-full flex-1 bg-surface px-space-lg py-space-md pt-16">
+          <Outlet />
         </main>
       </div>
     </div>
+  );
+}
+
+export function AppLayout() {
+  return (
+    <NewSearchProvider>
+      <AppShell />
+    </NewSearchProvider>
   );
 }

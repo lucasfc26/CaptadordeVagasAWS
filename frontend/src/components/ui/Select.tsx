@@ -13,26 +13,28 @@ export function Select({ label, error, options, placeholder, className, id, ...p
   return (
     <div className="space-y-1.5">
       {label && (
-        <label htmlFor={selectId} className="block text-sm font-medium text-slate-300">
+        <label htmlFor={selectId} className="block font-label-caps text-label-caps uppercase text-on-surface-variant">
           {label}
         </label>
       )}
       <select
         id={selectId}
         className={cn(
-          'w-full rounded-md border bg-slate-800/50 px-3 py-2 text-sm text-slate-100 transition-colors',
-          'focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50',
-          error ? 'border-red-500/50' : 'border-slate-700',
-          className
+          'w-full appearance-none rounded-xl border border-outline-variant/40 bg-surface-container-high px-3 py-2 font-body-sm text-body-sm text-on-surface transition-colors',
+          'focus:outline-none focus:border-secondary/60 focus:ring-2 focus:ring-secondary/25',
+          error && 'border-error/50',
+          className,
         )}
         {...props}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
-      {error && <p className="text-xs text-red-400">{error}</p>}
+      {error && <p className="text-xs text-error">{error}</p>}
     </div>
   );
 }

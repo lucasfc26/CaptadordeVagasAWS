@@ -23,6 +23,7 @@ describe('Auth (e2e)', () => {
   const credentials = {
     name: 'E2E User',
     email: 'e2e-auth@jobwatch.test',
+    phone: '11999998888',
     password: 'password123',
   };
 
@@ -33,7 +34,11 @@ describe('Auth (e2e)', () => {
       .expect(201);
 
     expect(response.body.accessToken).toBeDefined();
-    expect(response.body.user).toMatchObject({ name: credentials.name, email: credentials.email });
+    expect(response.body.user).toMatchObject({
+      name: credentials.name,
+      email: credentials.email,
+      phone: '+5511999998888',
+    });
     expect(response.body.user.passwordHash).toBeUndefined();
   });
 
@@ -43,10 +48,17 @@ describe('Auth (e2e)', () => {
     await request(app.getHttpServer()).post('/api/auth/register').send(credentials).expect(409);
   });
 
+  it('rejects registration without a phone number', async () => {
+    await request(app.getHttpServer())
+      .post('/api/auth/register')
+      .send({ name: 'No Phone', email: 'nophone@jobwatch.test', password: 'password123' })
+      .expect(400);
+  });
+
   it('rejects registration with an invalid payload', async () => {
     await request(app.getHttpServer())
       .post('/api/auth/register')
-      .send({ name: 'A', email: 'not-an-email', password: '123' })
+      .send({ name: 'A', email: 'not-an-email', phone: '123', password: '123' })
       .expect(400);
   });
 

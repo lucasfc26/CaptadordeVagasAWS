@@ -4,10 +4,23 @@ export interface JobSearchLocationParams {
   country?: string;
 }
 
+export interface WarehouseSearchFilters {
+  zipCode: string;
+  workHours?: number;
+  schedule?: string[];
+  length?: string;
+  whenStart?: string;
+  jobTitle?: string;
+  employmentType?: string;
+  payRateMin?: number;
+  payRateMax?: number;
+}
+
 export interface JobSearchParams {
   keywords: string[];
   locations: JobSearchLocationParams[];
   radiusMiles: number;
+  warehouseFilters?: WarehouseSearchFilters;
 }
 
 export interface ExternalJob {

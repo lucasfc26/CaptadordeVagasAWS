@@ -28,7 +28,9 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const url = String(error.config?.url ?? '');
+    const isAuthAttempt = url.includes('/auth/login') || url.includes('/auth/register');
+    if (error.response?.status === 401 && !isAuthAttempt) {
       localStorage.removeItem('auth_token');
       window.location.href = '/login';
     }

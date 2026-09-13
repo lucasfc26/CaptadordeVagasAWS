@@ -2,7 +2,7 @@
 // JobWatch - TanStack Query Hooks
 // ============================================
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { JobFilters, NotificationFilters, UserSettings } from '@/types';
 import type { SearchFormPayload } from '@/lib/searchMapping';
 import {
@@ -24,10 +24,12 @@ export function useDashboard() {
 }
 
 // --- Jobs ---
-export function useJobs(filters?: JobFilters) {
+export function useJobs(filters?: JobFilters, enabled = true) {
   return useQuery({
     queryKey: ['jobs', filters],
     queryFn: () => jobsService.list(filters),
+    placeholderData: keepPreviousData,
+    enabled,
   });
 }
 
@@ -66,6 +68,47 @@ export function useMarkJobApplied() {
   });
 }
 
+function invalidateJobs(qc: ReturnType<typeof useQueryClient>) {
+  qc.invalidateQueries({ queryKey: ['jobs'] });
+  qc.invalidateQueries({ queryKey: ['dashboard'] });
+  qc.invalidateQueries({ queryKey: ['notifications'] });
+}
+
+export function useDeleteJob() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => jobsService.remove(id),
+    onSuccess: () => invalidateJobs(qc),
+  });
+}
+
+export function useDeleteJobs() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (ids: string[]) => jobsService.removeMany(ids),
+    onSuccess: () => invalidateJobs(qc),
+  });
+}
+
+export function useDeleteAllJobs() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => jobsService.removeAll(),
+    onSuccess: () => invalidateJobs(qc),
+  });
+}
+
+export function useNotifyJobWhatsapp() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => jobsService.notifyWhatsapp(id),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['notifications'] });
+      qc.invalidateQueries({ queryKey: ['dashboard'] });
+    },
+  });
+}
+
 // --- Searches ---
 export function useSearches() {
   return useQuery({
@@ -98,6 +141,12 @@ export function useCreateSearch() {
       qc.invalidateQueries({ queryKey: ['searches'] });
       qc.invalidateQueries({ queryKey: ['dashboard'] });
     },
+  });
+}
+
+export function useInspectApi() {
+  return useMutation({
+    mutationFn: (url: string) => searchesService.inspectApi(url),
   });
 }
 
@@ -136,19 +185,63 @@ export function useToggleSearch() {
   });
 }
 
+export function useForceScan() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => searchesService.runNow(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['searches'] });
+      qc.invalidateQueries({ queryKey: ['dashboard'] });
+      qc.invalidateQueries({ queryKey: ['jobs'] });
+      qc.invalidateQueries({ queryKey: ['notifications'] });
+    },
+  });
+}
+
 // --- Notifications ---
 export function useNotifications(filters?: NotificationFilters) {
   return useQuery({
     queryKey: ['notifications', filters],
     queryFn: () => notificationsService.list(filters),
+    refetchInterval: REFRESH_INTERVAL,
   });
+}
+
+function invalidateNotifications(qc: ReturnType<typeof useQueryClient>) {
+  qc.invalidateQueries({ queryKey: ['notifications'] });
+  qc.invalidateQueries({ queryKey: ['dashboard'] });
+  qc.invalidateQueries({ queryKey: ['jobs'] });
 }
 
 export function useMarkNotificationRead() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => notificationsService.markRead(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }),
+    onSuccess: () => invalidateNotifications(qc),
+  });
+}
+
+export function useDeleteNotification() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => notificationsService.remove(id),
+    onSuccess: () => invalidateNotifications(qc),
+  });
+}
+
+export function useDeleteNotifications() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (ids: string[]) => notificationsService.removeMany(ids),
+    onSuccess: () => invalidateNotifications(qc),
+  });
+}
+
+export function useDeleteAllNotifications() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => notificationsService.removeAll(),
+    onSuccess: () => invalidateNotifications(qc),
   });
 }
 
@@ -171,7 +264,8 @@ export function useUpdateSettings() {
 // --- User Profile ---
 export function useUpdateProfile() {
   return useMutation({
-    mutationFn: (data: { name?: string; timezone?: string }) => usersService.updateProfile(data),
+    mutationFn: (data: { name?: string; phone?: string; timezone?: string }) =>
+      usersService.updateProfile(data),
   });
 }
 

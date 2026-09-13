@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-container":"#f5fff7","tertiary-fixed-dim":"#ffb77d","outline":"#6d7a72","background":"#faf8ff","surface-dim":"#d2d9f4","primary":"#006948","on-surface-variant":"#3d4a42","surface-container":"#eaedff","on-tertiary-fixed":"#2f1500","surface-container-high":"#e2e7ff","inverse-surface":"#283044","secondary-container":"#5bb8fe","tertiary-fixed":"#ffdcc3","on-error":"#ffffff","on-tertiary":"#ffffff","surface":"#faf8ff","on-primary-fixed":"#002114","outline-variant":"#bccac0","primary-fixed":"#85f8c4","primary-container":"#00855d","tertiary":"#8d4b00","on-error-container":"#93000a","surface-container-low":"#f2f3ff","secondary-fixed":"#cce5ff","on-background":"#131b2e","error":"#ba1a1a","on-secondary-fixed-variant":"#004b73","error-container":"#ffdad6","surface-container-highest":"#dae2fd","inverse-on-surface":"#eef0ff","surface-container-lowest":"#ffffff","tertiary-container":"#b15f00","on-secondary-fixed":"#001d31","on-primary-fixed-variant":"#005137","on-secondary":"#ffffff","on-secondary-container":"#00476e","on-tertiary-container":"#fffbff","primary-fixed-dim":"#68dba9","on-surface":"#131b2e","secondary-fixed-dim":"#93ccff","surface-tint":"#006c4a","on-tertiary-fixed-variant":"#6e3900","on-primary":"#ffffff","secondary":"#006398","inverse-primary":"#68dba9","surface-variant":"#dae2fd","surface-bright":"#faf8ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"1rem","space-2xl":"2rem",margin:"1rem","space-md":"0.75rem","space-xs":"0.25rem","space-lg":"1rem","space-3xl":"3rem","gutter-lg":"1.5rem","space-xl":"1.5rem","margin-md":"1.5rem","space-sm":"0.5rem","margin-lg":"2.5rem","space-2xs":"0.125rem"},fontFamily:{"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"mono-data":["JetBrains Mono"],"display-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"]},fontSize:{"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-lg":["28px",{lineHeight:"34px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"display-lg-mobile":["30px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"headline-md":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"mono-data":["12px",{lineHeight:"16px",fontWeight:"500"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"700"}],"title-md":["15px",{lineHeight:"20px",letterSpacing:"-0.005em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-outline-variant/20"><img alt="JobWatch Logo Light" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WvE_GlEY8NEA1xtyC_0hGRWthpcsshHISyAuC-bcBxZjsmFESIAzwDlAE7MYI8m_ZAjYRAiSqbDWbvSuWuytDB7hDgDHuvSGFNMra90S7aQPHIORBxocGWVed2NqEBvpokNo3qwBwAZ3n5eQbaPfXSX_EkBgsaFPspiCJipaYih6J0dwID0TPutYnHzcsv6eOkjywHJplywiI-g_5LUTazhnREWjYE0ydrhqqroAZcOwUzXn0FdxiMrwH6"/><div class="flex flex-col"><span class="font-title-md text-title-md font-bold text-on-surface tracking-tight leading-none">JobWatch</span><span class="font-label-sm text-[10px] text-primary font-semibold tracking-wider uppercase mt-1">Amazon Radar</span></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-lg"><div class="space-y-space-xs"><span class="px-space-sm font-label-sm text-label-sm font-semibold tracking-wider text-outline uppercase">Operações</span><nav class="mt-space-xs space-y-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">dashboard</span><span class="font-body-md text-body-md font-medium">Dashboard</span></div></a><a aria-current="page" class="flex items-center justify-between px-space-md py-2 transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="vagas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">work</span><span class="font-body-md text-body-md font-medium">Vagas</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-semibold">12</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="monitoramentos" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">radar</span><span class="font-body-md text-body-md font-medium">Monitoramentos</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold">2</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notificacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="font-body-md text-body-md font-medium">Notificações</span></div><span class="font-mono-data text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">3</span></a></nav></div><div class="space-y-space-xs"><span class="px-space-sm font-label-sm text-label-sm font-semibold tracking-wider text-outline uppercase">Sistema</span><nav class="mt-space-xs space-y-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">settings</span><span class="font-body-md text-body-md font-medium">Configurações</span></div></a></nav></div></div></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest space-y-space-md"><div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant/20 flex flex-col gap-1"><div class="flex items-center justify-between"><span class="font-mono-data text-[10px] uppercase tracking-wider text-outline font-semibold">Engine Status</span><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span></div><div class="flex items-center justify-between text-on-surface"><span class="font-mono-data text-label-sm font-bold text-primary">Online</span><span class="font-mono-data text-label-sm text-on-surface-variant">99.98% Uptime</span></div></div><div class="flex items-center justify-between pt-1"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-semibold text-label-sm shrink-0 border border-outline-variant/30">LR</div><div class="flex flex-col min-w-0"><span class="font-title-md text-body-md font-semibold text-on-surface truncate">Lucas Rocha</span><span class="font-label-sm text-[11px] text-outline truncate">lucas@jobwatch.io</span></div></div><a class="p-1.5 rounded-md text-outline hover:text-error hover:bg-surface-container transition-colors shrink-0" data-path="logout" href="#" title="Sair"><span class="material-symbols-outlined text-[18px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/20 z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="inline-flex items-center gap-2 px-space-md py-1 rounded-full bg-primary-fixed/30 border border-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-medium"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span><span>Monitoramento Ativo (Freq: 15 min)</span></div><div class="hidden xl:flex items-center gap-space-md font-mono-data text-label-sm text-on-surface-variant border-l border-outline-variant/30 pl-space-lg"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-outline">history</span><span>Varredura: <strong class="text-on-surface font-semibold">há 2 min</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-outline">update</span><span>Próxima: <strong class="text-on-surface font-semibold">em 13 min</strong></span></div></div></div><div class="flex items-center gap-space-md"><button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-lowest border border-outline-variant/50 text-on-surface hover:bg-surface-container-low hover:border-outline-variant transition-colors font-label-md text-label-md font-medium shadow-sm" type="button"><span class="material-symbols-outlined text-[16px] text-outline">sync</span><span>Forçar Varredura</span></button><button class="inline-flex items-center gap-2 px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary transition-all font-label-md text-label-md font-semibold shadow-sm" type="button"><span class="material-symbols-outlined text-[18px]">add</span><span>Nova Busca</span><kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono-data bg-on-primary/20 text-on-primary rounded">⌘K</kbd></button><div class="h-6 w-px bg-outline-variant/30 mx-1"></div><a aria-label="Notificações" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notificacoes" href="#"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-xl flex flex-col gap-space-xl max-w-[1440px] mx-auto w-full">
+<!-- Top Bar / Telemetry Indicator & Header -->
+<header class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg pb-space-xs">
+<div class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-2 self-start px-space-md py-1 rounded-full bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-label-sm font-semibold tracking-wider uppercase">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+          FEED EM TEMPO REAL • HUB CALIFÓRNIA BAY AREA
+        </div>
+<div class="flex flex-wrap items-center gap-space-md mt-1">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+            Vagas Encontradas
+          </h1>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container font-mono-data text-label-sm font-semibold">
+            12 vagas ativas
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Monitoramento contínuo em <strong class="text-on-surface font-medium">Richmond (OAK4)</strong>, <strong class="text-on-surface font-medium">San Pablo (DSF8)</strong> e <strong class="text-on-surface font-medium">Pinole (OAK6)</strong> via Webhook Poller v1.2.
+        </p>
+</div>
+<!-- Action Controls -->
+<div class="flex items-center gap-space-sm self-start lg:self-end">
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors shadow-sm font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[17px] text-outline">done_all</span>
+<span>Marcar todas como vistas</span>
+</button>
+<div class="relative inline-block text-left">
+<button class="inline-flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">swap_vert</span>
+<span>Mais recentes primeiro</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Search & Filter Controls -->
+<section class="flex flex-col gap-space-md">
+<div class="flex flex-col md:flex-row gap-space-md items-stretch md:items-center">
+<!-- Search Input with Kbd -->
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[18px] text-outline">search</span>
+</div>
+<input class="w-full pl-10 pr-16 py-2.5 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="Pesquisar por cargo, fulfillment center..." type="search"/>
+<div class="absolute inset-y-0 right-0 pr-space-md flex items-center pointer-events-none">
+<kbd class="px-2 py-0.5 text-[11px] font-mono-data bg-surface-container-high text-on-surface-variant rounded">⌘F</kbd>
+</div>
+</div>
+<!-- Toggle Switch 24 Hours -->
+<div class="inline-flex items-center gap-space-sm px-space-md py-2 rounded-lg bg-surface-container-lowest shadow-sm select-none">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+<span class="font-label-md text-label-md font-medium text-on-surface">Últimas 24 horas</span>
+</div>
+</div>
+<!-- Quick Badges Horizontal Scroll -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 scrollbar-none">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-semibold shadow-sm shrink-0" type="button">
+<span>Todas</span>
+<span class="px-1.5 py-0.2 bg-on-primary/20 rounded-full font-mono-data text-[10px]">12</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Novas</span>
+<span class="px-1.5 py-0.2 bg-surface-container-high rounded-full font-mono-data text-[10px]">3</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span>Visualizadas</span>
+<span class="px-1.5 py-0.2 bg-surface-container-high rounded-full font-mono-data text-[10px]">9</span>
+</button>
+<span class="h-4 w-px bg-outline-variant/40 mx-1 shrink-0"></span>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span class="font-mono-data text-[11px] text-outline font-semibold">FC:</span>
+<span>Richmond OAK4</span>
+</button>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span class="font-mono-data text-[11px] text-outline font-semibold">DS:</span>
+<span>San Pablo DSF8</span>
+</button>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span class="font-mono-data text-[11px] text-outline font-semibold">SC:</span>
+<span>Pinole OAK6</span>
+</button>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md shrink-0 shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+<span>Full-time (40h)</span>
+</button>
+</div>
+</section>
+<!-- Master-Detail Split Grid (2 Columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Master Job List (7 Cols) -->
+<section aria-label="Lista de Vagas" class="lg:col-span-7 flex flex-col gap-space-md min-w-0">
+<!-- Job Card 1: ACTIVE / SELECTED -->
+<article class="relative flex flex-col p-space-lg bg-surface-container-lowest rounded-xl shadow-md transition-all cursor-pointer ring-2 ring-primary/80 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-bold tracking-wide animate-pulse">
+<span class="material-symbols-outlined text-[13px]">bolt</span> NOVO MATCH
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-mono-data text-label-sm font-semibold text-secondary">
+                OAK4
+              </span>
+<span class="font-mono-data text-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">cloud_download</span> há 2 min
+              </span>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed/40 shrink-0"></div>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-bold text-on-surface hover:text-primary transition-colors">
+              Warehouse Associate / Order Fulfillment
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">warehouse</span>
+<span>Amazon Fulfillment Center • Richmond, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-md bg-surface-container-low/50 -mx-space-lg px-space-lg flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-headline-md font-bold text-primary">$21.50 - $23.50</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/hora USD</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">nightlight</span> Turno Noturno 4x10h
+              </span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all shadow-sm" type="button">
+<span>Candidate-se Agora</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Job Card 2: New Match -->
+<article class="relative flex flex-col p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">bolt</span> NOVO MATCH
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-mono-data text-label-sm font-semibold">
+                DSF8
+              </span>
+<span class="font-mono-data text-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">cloud_download</span> há 6 min
+              </span>
+</div>
+<span class="font-mono-data text-label-sm text-outline">1.8 mi</span>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+              Delivery Station Warehouse Associate
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">local_shipping</span>
+<span>Amazon Delivery Station • San Pablo, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-title-lg font-bold text-on-surface">$20.75</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/h base</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">wb_twilight</span> Turno da Manhã (04:00 - 12:30)
+              </span>
+<button class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Job Card 3: New Match -->
+<article class="relative flex flex-col p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">bolt</span> NOVO MATCH
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-mono-data text-label-sm font-semibold text-secondary">
+                OAK6
+              </span>
+<span class="font-mono-data text-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> há 11 min
+              </span>
+</div>
+<span class="font-mono-data text-label-sm text-outline">3.4 mi</span>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+              Sortation Center Specialist – Package Handler
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">inventory_2</span>
+<span>Amazon Sort Center • Pinole, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-title-lg font-bold text-on-surface">$22.00</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/h fixo</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> Flex 30h-40h
+              </span>
+<button class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Job Card 4: Viewed -->
+<article class="flex flex-col p-space-lg bg-surface-container-lowest/80 hover:bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-data text-label-sm font-medium">
+<span class="material-symbols-outlined text-[12px]">visibility</span> Visualizada
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-mono-data text-label-sm font-semibold text-outline">
+                OAK4
+              </span>
+<span class="font-mono-data text-label-sm text-outline">há 3 horas</span>
+</div>
+<span class="font-mono-data text-label-sm text-outline">Richmond</span>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-semibold text-on-surface/90 group-hover:text-primary transition-colors">
+              Seasonal Fulfillment Associate
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">warehouse</span>
+<span>Richmond FC • Richmond, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-title-md font-semibold text-on-surface">$20.50</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/h</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">wb_sunny</span> Turno Vespertino
+            </span>
+</div>
+</article>
+<!-- Job Card 5: Viewed -->
+<article class="flex flex-col p-space-lg bg-surface-container-lowest/80 hover:bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-data text-label-sm font-medium">
+<span class="material-symbols-outlined text-[12px]">visibility</span> Visualizada
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-mono-data text-label-sm font-semibold">
+                DSF8
+              </span>
+<span class="font-mono-data text-label-sm text-outline">há 5 horas</span>
+</div>
+<span class="font-mono-data text-label-sm text-outline">San Pablo</span>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-semibold text-on-surface/90 group-hover:text-primary transition-colors">
+              Material Handler / Inbound Stagger
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">conveyor_belt</span>
+<span>San Pablo Dock • San Pablo, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-title-md font-semibold text-on-surface">$21.00</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/h</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">splitscreen</span> Turno Rotativo
+            </span>
+</div>
+</article>
+<!-- Job Card 6: Viewed -->
+<article class="flex flex-col p-space-lg bg-surface-container-lowest/80 hover:bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-mono-data text-label-sm font-medium">
+<span class="material-symbols-outlined text-[12px]">visibility</span> Visualizada
+              </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-mono-data text-label-sm font-semibold text-outline">
+                OAK4
+              </span>
+<span class="font-mono-data text-label-sm text-outline">há 8 horas</span>
+</div>
+<span class="font-mono-data text-label-sm text-outline">Richmond</span>
+</div>
+<div class="mt-space-sm">
+<h2 class="font-title-lg text-title-lg font-semibold text-on-surface/90 group-hover:text-primary transition-colors">
+              Forklift Operator / Heavy Bulb Specialist
+            </h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[16px] text-outline">forklift</span>
+<span>Richmond FC • Richmond, CA</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-mono-data text-title-md font-semibold text-on-surface">$23.00</span>
+<span class="font-mono-data text-label-sm text-on-surface-variant">/h</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">badge</span> Certificação PIT Inclusa
+            </span>
+</div>
+</article>
+<!-- Pagination Bar -->
+<nav aria-label="Navegação da lista" class="flex items-center justify-between px-space-md py-space-sm rounded-xl bg-surface-container-lowest shadow-sm mt-space-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">
+            Mostrando <strong class="text-on-surface font-semibold">1-6</strong> de <strong class="text-on-surface font-semibold">12</strong> vagas monitoradas
+          </span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-mono-data text-label-md font-bold flex items-center justify-center shadow-sm" type="button">
+              1
+            </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container-high font-mono-data text-label-md font-semibold flex items-center justify-center transition-colors" type="button">
+              2
+            </button>
+<button aria-label="Próxima página" class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</nav>
+</section>
+<!-- RIGHT COLUMN: Selected Job Detail Panel (5 Cols, Sticky) -->
+<aside class="lg:col-span-5 flex flex-col gap-space-lg lg:sticky lg:top-20">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-md overflow-hidden">
+<!-- Detail Header Strip -->
+<div class="p-space-lg bg-surface-container-low/60 flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-mono-data text-label-sm font-bold text-on-surface bg-surface-container-high px-2 py-0.5 rounded">
+                #AMZN-OAK4-8841
+              </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-mono-data text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                Ativa no Portal
+              </span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Compartilhar Link" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" title="Salvar vaga" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+</div>
+<div class="p-space-xl flex flex-col gap-space-lg">
+<!-- Main Title & Location -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-mono-data text-[10px] font-bold uppercase tracking-wider">
+                  Alta Prioridade
+                </span>
+<span class="font-mono-data text-label-sm text-outline">Capturada em Richmond HUB</span>
+</div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface leading-tight mt-1">
+                Warehouse Associate / Order Fulfillment
+              </h2>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-md text-body-md mt-1">
+<span class="material-symbols-outlined text-[18px] text-primary">location_on</span>
+<span class="font-semibold text-on-surface">Amazon Fulfillment Center (OAK4)</span>
+<span>• 2995 Atlas Rd, Richmond, CA 94806</span>
+</div>
+</div>
+<!-- Compensation Hero Box -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Faixa Salarial Estimada</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-fixed/40 text-on-primary-fixed font-mono-data text-[11px] font-bold">
+                  +$1.50/h adicional noturno
+                </span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-mono-data text-display-lg text-display-lg font-bold text-primary tracking-tight leading-none">
+                  $21.50 – $23.50
+                </span>
+<span class="font-mono-data text-body-lg text-on-surface-variant font-medium">/hora USD</span>
+</div>
+<div class="flex items-center gap-1.5 mt-2 pt-2 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">payments</span>
+<span>Acesso ao <strong>Anytime Pay</strong>: receba até 70% do salário logo após o fim do turno.</span>
+</div>
+</div>
+<!-- CTA Primary Action Button -->
+<div class="flex flex-col gap-space-xs">
+<a class="w-full inline-flex items-center justify-center gap-space-sm px-space-xl py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-body-lg font-bold shadow-md hover:shadow-lg transition-all group" href="https://amazon.jobs" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[22px] group-hover:translate-x-0.5 transition-transform">open_in_new</span>
+<span>Candidate-se no Amazon Jobs</span>
+</a>
+<div class="flex items-center justify-center gap-1.5 text-outline font-mono-data text-[11px]">
+<span class="material-symbols-outlined text-[13px] text-primary">verified_user</span>
+<span>Link direto verificado • Sem taxas de intermediários</span>
+</div>
+</div>
+<!-- Requirements & Perks -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Requisitos &amp; Benefícios Operacionais</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex items-start gap-2 p-space-sm rounded-lg bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-semibold text-on-surface">Jornada Integral 40h</span>
+<span class="font-body-md text-[12px] text-on-surface-variant">Escala padrão 4x10h seguidas</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-space-sm rounded-lg bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-semibold text-on-surface">Benefícios Day 1</span>
+<span class="font-body-md text-[12px] text-on-surface-variant">Plano de Saúde, Odonto e 401(k)</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-space-sm rounded-lg bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-semibold text-on-surface">Career Choice</span>
+<span class="font-body-md text-[12px] text-on-surface-variant">95% de anuidade universitária paga</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-space-sm rounded-lg bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-semibold text-on-surface">Sem Entrevista Formal</span>
+<span class="font-body-md text-[12px] text-on-surface-variant">Contratação rápida mediante checagem</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Map Graphic View -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Localização do Centro de Distribuição</span>
+<span class="font-mono-data text-[11px] text-secondary font-medium">Richmond Industrial Corridor</span>
+</div>
+<div class="relative w-full h-44 rounded-xl overflow-hidden shadow-sm bg-cover bg-center flex items-end p-space-md" data-location="2995 Atlas Rd, Richmond, CA" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvbJXYR6jklJUqaBjp-kJCv7m7WF_-o4dKh-0LHg53GPUG2_1WXRcGPqxwspIf1HPFi2QPH3DbWTu1Jr22Yxiu47eBX4oNGZMngFNwLuDNeYWJX77SpUR-VjtlthTnmKh5UryfYMqOTfopT8ui-EBQ1HRQPOMjd_CNWdzjPPfUeVtgoRZbZfgvsI4EJBPmtiY_bATVwzz4LPY0HwL9PZbyIFKDCGYu-Yx8a4KDR_xVGUD86iEQactYQA');">
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex items-center justify-between w-full text-inverse-on-surface">
+<div class="flex items-center gap-2">
+<span class="p-1.5 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[18px]">pin_drop</span>
+</span>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-bold leading-none">OAK4 - Richmond Hub</span>
+<span class="font-body-md text-[11px] opacity-80">Atlas Road Facilities</span>
+</div>
+</div>
+<a class="px-2.5 py-1 rounded bg-surface-container-lowest/90 text-on-surface font-mono-data text-[11px] font-bold hover:bg-surface-container-lowest transition-colors shadow" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
+                    Abrir Rota
+                  </a>
+</div>
+</div>
+</div>
+<!-- Bot Detection Telemetry Box -->
+<div class="p-space-md rounded-xl bg-surface-container-low font-mono-data text-label-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-on-surface pb-1.5 border-b border-outline-variant/30">
+<span class="flex items-center gap-1.5 text-outline font-semibold uppercase tracking-wider text-[10px]">
+<span class="material-symbols-outlined text-[14px] text-primary">sensors</span> Telemetria do Rastreador
+                </span>
+<span class="text-primary font-bold">Ciclo #1042</span>
+</div>
+<div class="grid grid-cols-2 gap-y-1.5 gap-x-4 text-[11px]">
+<div class="flex justify-between">
+<span class="text-outline">Primeira Captura:</span>
+<span class="text-on-surface font-semibold">14:28:10 PST</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Latência Poller:</span>
+<span class="text-primary font-semibold">382ms</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Integridade:</span>
+<span class="text-on-surface font-semibold">HTTP 200 OK</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Status Vaga:</span>
+<span class="text-primary font-semibold">VERIFIED OPEN</span>
+</div>
+</div>
+</div>
+<!-- Detail Panel Actions Footer -->
+<div class="flex items-center justify-between pt-space-xs text-label-md">
+<button class="inline-flex items-center gap-1 text-outline hover:text-error transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">flag</span>
+<span>Reportar Vaga Expirada</span>
+</button>
+<button class="inline-flex items-center gap-1 text-primary hover:underline font-semibold" type="button">
+<span class="material-symbols-outlined text-[16px]">notification_add</span>
+<span>Criar Alerta Similar</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div></main></div></body></html>

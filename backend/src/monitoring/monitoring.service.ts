@@ -1,12 +1,15 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ExecutionStatus, NotificationType, SearchStatus } from '@prisma/client';
+import { ExecutionStatus, NotificationType, SearchSourceType, SearchStatus } from '@prisma/client';
 import { PrismaService } from '../database/prisma.service';
 import { MonitoringQueueService } from '../queues/monitoring-queue.service';
 import { NotificationDispatchService } from '../notifications/notification-dispatch.service';
-import { JOB_SOURCE_ADAPTER, JobSourceAdapter } from './interfaces/job-source-adapter.interface';
+import { AmazonWarehouseAdapter } from './adapters/amazon-warehouse.adapter';
+import {
+  JOB_SOURCE_ADAPTER,
+  JobSourceAdapter,
+  WarehouseSearchFilters,
+} from './interfaces/job-source-adapter.interface';
 import { normalizeJob } from './normalizers/job.normalizer';
-
-const STALE_MISSED_CHECKS = 2;
 
 @Injectable()
 export class MonitoringService {
@@ -15,6 +18,7 @@ export class MonitoringService {
   constructor(
     private readonly prisma: PrismaService,
     @Inject(JOB_SOURCE_ADAPTER) private readonly adapter: JobSourceAdapter,
+    private readonly warehouseAdapter: AmazonWarehouseAdapter,
     private readonly notificationDispatch: NotificationDispatchService,
     private readonly monitoringQueue: MonitoringQueueService,
   ) {}
@@ -34,7 +38,7 @@ export class MonitoringService {
     });
 
     try {
-      const externalJobs = await this.adapter.search({
+      const searchParams = {
         keywords: search.keywords.map((k) => k.value),
         locations: search.locations.map((l) => ({
           city: l.city,
@@ -42,19 +46,30 @@ export class MonitoringService {
           country: l.country,
         })),
         radiusMiles: search.radiusMiles,
-      });
+        warehouseFilters: parseWarehouseFilters(search.warehouseFilters),
+      };
+      const externalJobs =
+        search.sourceType === SearchSourceType.AMAZON_WAREHOUSE
+          ? await this.warehouseAdapter.search(searchParams)
+          : await this.adapter.search(searchParams);
 
       const normalized = externalJobs.map(normalizeJob);
-      const newJobs: { id: string; title: string; city: string; state: string }[] = [];
+      const alertJobs: { id: string; title: string; city: string; state: string }[] = [];
+      const seenExternalIds: string[] = [];
+      const sourceName =
+        search.sourceType === SearchSourceType.AMAZON_WAREHOUSE
+          ? this.warehouseAdapter.sourceName
+          : this.adapter.sourceName;
 
       for (const nj of normalized) {
         const key = { source_externalId: { source: nj.source, externalId: nj.externalId } };
         const existing = await this.prisma.job.findUnique({ where: key });
+        const now = new Date();
 
         const job = await this.prisma.job.upsert({
           where: key,
-          create: { ...nj, firstSeenAt: new Date(), lastSeenAt: new Date(), isActive: true },
-          update: { ...nj, lastSeenAt: new Date(), isActive: true },
+          create: { ...nj, firstSeenAt: now, lastSeenAt: now, isActive: true },
+          update: { ...nj, lastSeenAt: now, isActive: true },
         });
 
         await this.prisma.jobSearch.upsert({
@@ -63,12 +78,15 @@ export class MonitoringService {
           update: {},
         });
 
-        if (!existing) {
-          newJobs.push(job);
+        seenExternalIds.push(nj.externalId);
+        const isNew = !existing;
+        const reappeared = Boolean(existing && !existing.isActive);
+        if (isNew || reappeared) {
+          alertJobs.push(job);
         }
       }
 
-      await this.deactivateStaleJobs(searchId, search.frequencyMinutes);
+      await this.markMissingJobs(searchId, sourceName, seenExternalIds);
 
       await this.prisma.monitoringExecution.update({
         where: { id: execution.id },
@@ -76,7 +94,7 @@ export class MonitoringService {
           status: ExecutionStatus.SUCCESS,
           finishedAt: new Date(),
           jobsFound: normalized.length,
-          newJobs: newJobs.length,
+          newJobs: alertJobs.length,
         },
       });
 
@@ -85,7 +103,7 @@ export class MonitoringService {
         data: { lastCheckedAt: new Date(), status: SearchStatus.ACTIVE },
       });
 
-      for (const job of newJobs) {
+      for (const job of alertJobs) {
         await this.notificationDispatch.create({
           userId: search.userId,
           type: NotificationType.NEW_JOB,
@@ -98,7 +116,7 @@ export class MonitoringService {
       }
 
       this.logger.log(
-        `Busca ${searchId}: ${normalized.length} vagas encontradas, ${newJobs.length} novas`,
+        `Busca ${searchId}: ${normalized.length} vagas encontradas, ${alertJobs.length} novas/reaparecidas`,
       );
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
@@ -118,13 +136,13 @@ export class MonitoringService {
     }
   }
 
-  private async deactivateStaleJobs(searchId: string, frequencyMinutes: number) {
-    const cutoff = new Date(Date.now() - frequencyMinutes * 60_000 * STALE_MISSED_CHECKS);
+  private async markMissingJobs(searchId: string, source: string, seenExternalIds: string[]) {
     await this.prisma.job.updateMany({
       where: {
+        source,
         jobSearches: { some: { searchId } },
-        lastSeenAt: { lt: cutoff },
         isActive: true,
+        ...(seenExternalIds.length ? { externalId: { notIn: seenExternalIds } } : {}),
       },
       data: { isActive: false },
     });
@@ -147,4 +165,22 @@ export class MonitoringService {
     });
     await this.monitoringQueue.scheduleSearch(searchId, delayMs);
   }
+}
+
+function parseWarehouseFilters(value: unknown): WarehouseSearchFilters | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const raw = value as Record<string, unknown>;
+  const zipCode = typeof raw.zipCode === 'string' ? raw.zipCode.trim() : '';
+  if (!zipCode) return undefined;
+  return {
+    zipCode,
+    workHours: typeof raw.workHours === 'number' ? raw.workHours : undefined,
+    schedule: Array.isArray(raw.schedule) ? raw.schedule.filter((item): item is string => typeof item === 'string') : [],
+    length: typeof raw.length === 'string' ? raw.length : undefined,
+    whenStart: typeof raw.whenStart === 'string' ? raw.whenStart : undefined,
+    jobTitle: typeof raw.jobTitle === 'string' && raw.jobTitle.trim() ? raw.jobTitle.trim() : undefined,
+    employmentType: typeof raw.employmentType === 'string' ? raw.employmentType : undefined,
+    payRateMin: typeof raw.payRateMin === 'number' ? raw.payRateMin : undefined,
+    payRateMax: typeof raw.payRateMax === 'number' ? raw.payRateMax : undefined,
+  };
 }

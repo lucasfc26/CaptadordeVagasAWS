@@ -25,7 +25,7 @@ describe('Jobs, Notifications & Dashboard (e2e)', () => {
   async function registerAndGetToken(email: string): Promise<string> {
     const response = await request(server)
       .post('/api/auth/register')
-      .send({ name: 'Owner', email, password: 'password123' })
+      .send({ name: 'Owner', email, phone: '11988887777', password: 'password123' })
       .expect(201);
     return response.body.accessToken as string;
   }
@@ -118,6 +118,139 @@ describe('Jobs, Notifications & Dashboard (e2e)', () => {
       const afterViewing = await request(server).get('/api/jobs/new').set(auth).expect(200);
       expect(afterViewing.body.total).toBe(0);
     });
+
+    it('keeps statusCounts independent from the active status filter', async () => {
+      const token = await registerAndGetToken('jobs-counts@jobwatch.test');
+      const { jobId } = await seedSearchWithJob(token);
+      const auth = { Authorization: `Bearer ${token}` };
+
+      const all = await request(server).get('/api/jobs').set(auth).expect(200);
+      expect(all.body.statusCounts).toEqual({
+        all: 1,
+        NEW: 1,
+        VIEWED: 0,
+        APPLIED: 0,
+        EXPIRED: 0,
+      });
+
+      const viewedOnly = await request(server)
+        .get('/api/jobs')
+        .query({ status: 'VIEWED' })
+        .set(auth)
+        .expect(200);
+      expect(viewedOnly.body.total).toBe(0);
+      expect(viewedOnly.body.data).toEqual([]);
+      expect(viewedOnly.body.statusCounts).toEqual(all.body.statusCounts);
+
+      await request(server).patch(`/api/jobs/${jobId}/viewed`).set(auth).expect(200);
+
+      const afterViewing = await request(server)
+        .get('/api/jobs')
+        .query({ status: 'NEW' })
+        .set(auth)
+        .expect(200);
+      expect(afterViewing.body.total).toBe(0);
+      expect(afterViewing.body.statusCounts).toEqual({
+        all: 1,
+        NEW: 0,
+        VIEWED: 1,
+        APPLIED: 0,
+        EXPIRED: 0,
+      });
+    });
+
+    it('rejects WhatsApp notify for another user’s job and requires Cloud API config', async () => {
+      const ownerToken = await registerAndGetToken('jobs-wa-owner@jobwatch.test');
+      const otherToken = await registerAndGetToken('jobs-wa-other@jobwatch.test');
+      const { jobId } = await seedSearchWithJob(ownerToken);
+
+      await request(server)
+        .post(`/api/jobs/${jobId}/notify-whatsapp`)
+        .set({ Authorization: `Bearer ${otherToken}` })
+        .expect(404);
+
+      const ownerSend = await request(server)
+        .post(`/api/jobs/${jobId}/notify-whatsapp`)
+        .set({ Authorization: `Bearer ${ownerToken}` })
+        .expect(400);
+      expect(String(ownerSend.body.message)).toMatch(/WhatsApp|WHATSAPP/i);
+    });
+
+    it('deletes a job owned by the user', async () => {
+      const token = await registerAndGetToken('jobs-delete@jobwatch.test');
+      const { jobId } = await seedSearchWithJob(token);
+      const auth = { Authorization: `Bearer ${token}` };
+
+      await request(server).delete(`/api/jobs/${jobId}`).set(auth).expect(200);
+      await request(server).get(`/api/jobs/${jobId}`).set(auth).expect(404);
+    });
+
+    it('bulk-deletes selected jobs and can delete all remaining jobs', async () => {
+      const token = await registerAndGetToken('jobs-bulk@jobwatch.test');
+      const first = await seedSearchWithJob(token);
+      const second = await prisma.job.create({
+        data: {
+          externalId: 'e2e-job-2',
+          source: 'amazon',
+          title: 'Sortation Associate',
+          company: 'Amazon',
+          location: 'Richmond, CA',
+          city: 'Richmond',
+          state: 'CA',
+          url: 'https://www.amazon.jobs/en/jobs/e2e-job-2',
+          jobSearches: { create: { searchId: first.searchId } },
+        },
+      });
+      const auth = { Authorization: `Bearer ${token}` };
+
+      await request(server)
+        .post('/api/jobs/bulk-delete')
+        .set(auth)
+        .send({ ids: [first.jobId] })
+        .expect(201);
+      const afterOne = await request(server).get('/api/jobs').set(auth).expect(200);
+      expect(afterOne.body.total).toBe(1);
+      expect(afterOne.body.data[0].id).toBe(second.id);
+
+      await request(server)
+        .post('/api/jobs/bulk-delete')
+        .set(auth)
+        .send({ all: true })
+        .expect(201);
+      const afterAll = await request(server).get('/api/jobs').set(auth).expect(200);
+      expect(afterAll.body.total).toBe(0);
+    });
+
+    it('shows a deleted job as NEW when it is found again', async () => {
+      const token = await registerAndGetToken('jobs-reappear@jobwatch.test');
+      const { jobId, searchId } = await seedSearchWithJob(token);
+      const auth = { Authorization: `Bearer ${token}` };
+
+      await request(server).patch(`/api/jobs/${jobId}/viewed`).set(auth).expect(200);
+      await request(server).delete(`/api/jobs/${jobId}`).set(auth).expect(200);
+
+      const recreated = await prisma.job.create({
+        data: {
+          externalId: 'e2e-job-1',
+          source: 'amazon',
+          title: 'Warehouse Associate',
+          company: 'Amazon',
+          location: 'Richmond, CA',
+          city: 'Richmond',
+          state: 'CA',
+          url: 'https://www.amazon.jobs/en/jobs/e2e-job-1',
+          jobSearches: { create: { searchId } },
+        },
+      });
+
+      const listed = await request(server).get('/api/jobs').set(auth).expect(200);
+      expect(listed.body.total).toBe(1);
+      expect(listed.body.data[0].id).toBe(recreated.id);
+      expect(listed.body.data[0].status).toBe('NEW');
+
+      const dashboard = await request(server).get('/api/dashboard').set(auth).expect(200);
+      expect(dashboard.body.stats.newJobs).toBe(1);
+    });
   });
 
   describe('Notifications', () => {
@@ -155,6 +288,51 @@ describe('Jobs, Notifications & Dashboard (e2e)', () => {
         .expect(200);
       expect(read.body.readAt).not.toBeNull();
       expect(read.body.status).toBe('READ');
+    });
+
+    it('deletes one notification, selected notifications, and all remaining', async () => {
+      const token = await registerAndGetToken('notif-delete@jobwatch.test');
+      const { jobId, searchId } = await seedSearchWithJob(token);
+      const me = await request(server)
+        .get('/api/auth/me')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200);
+      const auth = { Authorization: `Bearer ${token}` };
+
+      const [first, second, third] = await Promise.all(
+        ['Uma', 'Duas', 'Três'].map((label, index) =>
+          prisma.notification.create({
+            data: {
+              userId: me.body.id,
+              jobId,
+              searchId,
+              type: 'NEW_JOB',
+              title: `Alerta ${label}`,
+              message: `Vaga ${index + 1}`,
+              channel: 'EMAIL',
+              status: 'SENT',
+            },
+          }),
+        ),
+      );
+
+      await request(server).delete(`/api/notifications/${first.id}`).set(auth).expect(200);
+      await request(server)
+        .post('/api/notifications/bulk-delete')
+        .set(auth)
+        .send({ ids: [second.id] })
+        .expect(201);
+      const afterTwo = await request(server).get('/api/notifications').set(auth).expect(200);
+      expect(afterTwo.body.total).toBe(1);
+      expect(afterTwo.body.data[0].id).toBe(third.id);
+
+      await request(server)
+        .post('/api/notifications/bulk-delete')
+        .set(auth)
+        .send({ all: true })
+        .expect(201);
+      const afterAll = await request(server).get('/api/notifications').set(auth).expect(200);
+      expect(afterAll.body.total).toBe(0);
     });
 
     it('never exposes another user’s notifications', async () => {

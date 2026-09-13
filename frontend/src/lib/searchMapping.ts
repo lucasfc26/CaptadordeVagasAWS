@@ -7,7 +7,7 @@
 // These helpers translate between the two without touching the form UI.
 // ============================================
 
-import type { JobType, MonitoringFrequency, NotificationChannel } from '@/types';
+import type { ApiFilters, JobType, MonitoringFrequency, NotificationChannel, SearchSourceType, WarehouseFilters } from '@/types';
 
 const FREQUENCY_TO_MINUTES: Record<MonitoringFrequency, number> = {
   '5min': 5,
@@ -54,6 +54,11 @@ export function buildLocationsPayload(
 
 export interface SearchFormPayload {
   name: string;
+  sourceType: SearchSourceType;
+  targetUrl?: string;
+  xpath?: string;
+  apiFilters?: ApiFilters;
+  warehouseFilters?: WarehouseFilters;
   location: string;
   radius: number;
   keywords: string[];
@@ -63,11 +68,34 @@ export interface SearchFormPayload {
   notificationChannels: NotificationChannel[];
 }
 
+export function isCustomSearchSource(sourceType: SearchSourceType) {
+  return sourceType === 'JOB_API' || sourceType === 'JOB_XPATH';
+}
+
+export function isWarehouseSearchSource(sourceType: SearchSourceType) {
+  return sourceType === 'AMAZON_WAREHOUSE';
+}
+
 export function toCreateSearchDto(data: SearchFormPayload) {
+  const custom = isCustomSearchSource(data.sourceType);
+  const warehouse = isWarehouseSearchSource(data.sourceType);
   return {
     name: data.name,
-    keywords: data.keywords,
-    locations: buildLocationsPayload(data.location, data.additionalCities),
+    sourceType: data.sourceType,
+    targetUrl: data.targetUrl,
+    xpath: data.xpath,
+    apiFilters: data.apiFilters,
+    warehouseFilters: data.warehouseFilters,
+    keywords: custom
+      ? [data.targetUrl || data.name]
+      : warehouse
+        ? [data.warehouseFilters?.zipCode || data.name]
+        : data.keywords,
+    locations: custom
+      ? [{ city: 'Custom', state: '—', isPrimary: true }]
+      : warehouse
+        ? [{ city: data.warehouseFilters?.zipCode || data.location, state: 'US', isPrimary: true }]
+        : buildLocationsPayload(data.location, data.additionalCities),
     radiusMiles: data.radius,
     frequencyMinutes: frequencyToMinutes(data.frequency),
     jobTypes: data.jobTypes,

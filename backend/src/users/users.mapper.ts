@@ -4,6 +4,7 @@ export interface PublicUser {
   id: string;
   name: string;
   email: string;
+  phone: string;
   timezone: string;
   createdAt: Date;
 }
@@ -13,6 +14,7 @@ export function toPublicUser(user: User): PublicUser {
     id: user.id,
     name: user.name,
     email: user.email,
+    phone: user.phone,
     timezone: user.timezone,
     createdAt: user.createdAt,
   };

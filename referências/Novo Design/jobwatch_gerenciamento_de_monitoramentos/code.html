@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#dfe2ef", "on-primary-fixed": "#002113", "primary-fixed": "#6ffbbe", "tertiary-fixed-dim": "#ffb95f", "on-primary-fixed-variant": "#005236", "background": "#0f131c", "on-error-container": "#ffdad6", "on-background": "#dfe2ef", "surface-tint": "#4edea3", "surface-dim": "#0f131c", "surface-container-lowest": "#0a0e17", "surface-container": "#1c1f29", "error": "#ffb4ab", "surface-container-low": "#181b25", "tertiary-fixed": "#ffddb8", "on-secondary-fixed": "#001f26", "inverse-surface": "#dfe2ef", "surface-bright": "#353943", "primary-container": "#10b981", "surface": "#0f131c", "secondary": "#4cd7f6", "outline": "#86948a", "surface-container-highest": "#31353f", "on-secondary": "#003640", "on-error": "#690005", "inverse-on-surface": "#2c303a", "on-tertiary-fixed": "#2a1700", "secondary-fixed": "#acedff", "surface-variant": "#31353f", "on-surface-variant": "#bbcabf", "secondary-fixed-dim": "#4cd7f6", "tertiary-container": "#e29100", "on-tertiary": "#472a00", "secondary-container": "#03b5d3", "tertiary": "#ffb95f", "inverse-primary": "#006c49", "on-secondary-fixed-variant": "#004e5c", "on-tertiary-container": "#523200", "on-primary": "#003824", "surface-container-high": "#262a34", "on-primary-container": "#00422b", "on-tertiary-fixed-variant": "#653e00", "on-secondary-container": "#00424e", "outline-variant": "#3c4a42", "error-container": "#93000a", "primary-fixed-dim": "#4edea3", "primary": "#4edea3" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "2rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem" }, "fontFamily": { "body-lg": [ "Inter" ], "body-md": [ "Inter" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "body-sm": [ "Inter" ], "mono-sm": [ "JetBrains Mono" ], "headline-lg": [ "Plus Jakarta Sans" ], "mono-data": [ "JetBrains Mono" ], "label-caps": [ "Plus Jakarta Sans" ], "display": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ] }, "fontSize": { "body-lg": [ "1rem", { "lineHeight": "1.625rem", "fontWeight": "400" } ], "body-md": [ "0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" } ], "headline-lg-mobile": [ "1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-sm": [ "0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" } ], "mono-sm": [ "0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" } ], "headline-lg": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "mono-data": [ "0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "label-caps": [ "0.6875rem", { "lineHeight": "1rem", "letterSpacing": "0.08em", "fontWeight": "700" } ], "display": [ "3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "headline-sm": [ "1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-md": [ "1.5rem", { "lineHeight": "2.0rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm min-w-0"><img alt="JobWatch Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WdwuWqFYXlaoCzumTC2WyVlcW1bBDOiBzsx5hKJ6UG8pT70JjLiMvqZSXm4nnRVLDcZFd81i5WjHkEtdpCzLz0Ik0bGROoWixmZOAuXQrlTJA-Prbx34Xyv05hBqI8xSxqHiud50d-j8TooVvgpTmOFKCFNBv1KciKUtGl8MOpdJuMUFwaSI-t7Ts5bso3bHihMKzBprmT8FEogpPJ2LNJeyLWeqMNT3dFHClGzuWrk1jmr_tWMYvgbN0y"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate leading-tight">JobWatch</span><span class="font-mono-sm text-mono-sm text-on-surface-variant leading-tight">AMZN Telemetry</span></div></div><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-container-high border border-outline-variant/40 font-mono-sm text-mono-sm text-secondary">v1.2 Live</span></div><div class="px-space-md py-space-sm"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider block mb-space-xs">Operações</span></div><nav class="flex-1 px-space-sm space-y-1 overflow-y-auto" data-active-classes="bg-surface-container-high text-primary font-semibold shadow-[inset_3px_0_0_0] shadow-primary"><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 group" data-path="dashboard" href="#"><span class="font-body-md text-body-md">Dashboard</span><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 group" data-path="vagas" href="#"><span class="font-body-md text-body-md">Vagas</span><span class="inline-flex items-center justify-center px-space-xs py-0.5 rounded-full bg-primary-container/20 border border-primary-container/30 text-primary font-mono-sm text-mono-sm font-semibold">12</span></a><a aria-current="page" class="flex items-center justify-between px-space-sm py-space-sm rounded-lg transition-all duration-150 group bg-surface-container-high text-primary font-semibold shadow-[inset_3px_0_0_0] shadow-primary" data-path="monitoramentos" href="#"><span class="font-body-md text-body-md">Monitoramentos</span><span class="inline-flex items-center justify-center px-space-xs py-0.5 rounded-full bg-secondary-container/20 border border-secondary-container/30 text-secondary font-mono-sm text-mono-sm font-semibold">2</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 group" data-path="notificacoes" href="#"><span class="font-body-md text-body-md">Notificações</span><span class="inline-flex items-center justify-center px-space-xs py-0.5 rounded-full bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary font-mono-sm text-mono-sm font-semibold">3</span></a><div class="pt-space-sm pb-space-xs px-space-xs"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider block">Sistema</span></div><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 group" data-path="configuracoes" href="#"><span class="font-body-md text-body-md">Configurações</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/20 flex flex-col gap-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant/20"><div class="flex items-center justify-between mb-1"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Engine Status</span><span class="inline-flex items-center gap-1 font-mono-sm text-mono-sm text-primary"><span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>Online</span></div><div class="font-mono-data text-mono-data text-on-surface-variant flex justify-between items-center"><span>Uptime</span><span class="text-on-surface font-semibold">99.98%</span></div></div><div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-low/40"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-body-md text-body-md text-on-surface font-semibold leading-tight truncate">Lucas Rocha</span><span class="font-mono-sm text-mono-sm text-on-surface-variant leading-tight truncate">lucas@jobwatch.io</span></div></div><button class="p-1 text-on-surface-variant hover:text-error hover:bg-surface-container-high rounded transition-colors" title="Encerrar Sessão" type="button"><span class="material-symbols-outlined text-[20px]">logout</span></button></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/20 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-container/10 border border-primary-container/30"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span><span class="font-body-sm text-body-sm font-semibold text-primary">Monitoramento Ativo</span><span class="font-mono-sm text-mono-sm text-on-surface-variant">(Freq: 15 min)</span></div><div class="h-4 w-[1px] bg-outline-variant/40 hidden md:block"></div><div class="hidden md:flex items-center gap-space-sm font-mono-data text-mono-data text-on-surface-variant"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-outline">history</span>Varredura: <strong class="text-on-surface font-medium">há 2 min</strong></span><span class="text-outline-variant">•</span><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-outline">update</span>Próxima: <strong class="text-secondary font-medium">em 13 min</strong></span></div></div><div class="flex items-center gap-space-sm"><button class="inline-flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface hover:bg-surface-container-highest hover:text-on-surface transition-colors font-body-sm text-body-sm font-medium" type="button"><span class="material-symbols-outlined text-[16px] text-primary">sync</span><span>Forçar Varredura</span></button><button class="inline-flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed-dim transition-all shadow-[0_0_15px_-3px_rgba(78,222,163,0.3)] font-body-sm text-body-sm font-semibold" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Nova Busca</span><kbd class="hidden sm:inline-block px-1 rounded bg-on-primary/10 font-mono-sm text-mono-sm text-on-primary">⌘K</kbd></button><div class="h-4 w-[1px] bg-outline-variant/40 mx-1"></div><a class="relative p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="notificacoes" href="#"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface flex-1 px-space-lg py-space-md"><div class="flex flex-col w-full space-y-space-lg pb-space-xl">
+<!-- Page Header -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Monitoramentos Ativos</h1>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-container/15 text-primary font-mono-sm text-mono-sm font-semibold">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+          2 Buscas em Execução
+        </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Gerenciamento de rotinas automatizadas de varredura e alertas em tempo real.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-body-sm text-body-sm font-medium shadow-sm" id="toggleAllBtn" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary">pause_circle</span>
+<span>Pausar Todas as Buscas</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-primary text-on-primary hover:bg-primary-fixed-dim transition-all font-body-sm text-body-sm font-semibold shadow-[0_0_20px_-5px_rgba(78,222,163,0.35)]" id="openNewSearchModal" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Criar Nova Busca</span>
+</button>
+</div>
+</div>
+<!-- Telemetry / Infrastructure Status Ribbons -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps uppercase text-outline">Daemon de Varredura</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Ativo (v1.2)</span>
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-primary-container/10 text-primary">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-mono-data text-mono-data text-on-surface-variant">
+<span>Taxa de Sucesso</span>
+<span class="text-primary font-semibold">99.8%</span>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps uppercase text-outline">Cadência Operacional</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">15 min</span>
+<span class="font-mono-sm text-mono-sm text-secondary bg-secondary-container/15 px-1.5 py-0.5 rounded">Média</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-secondary-container/10 text-secondary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-mono-data text-mono-data text-on-surface-variant">
+<span>Cargas Diárias</span>
+<span class="text-on-surface font-semibold">96 checagens/dia</span>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps uppercase text-outline">Despacho de Alertas</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">2 Ativos</span>
+<span class="font-mono-sm text-mono-sm text-primary bg-primary-container/10 px-1.5 py-0.5 rounded">Operante</span>
+</div>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-mono-data text-mono-data text-on-surface-variant">
+<span>Canais</span>
+<span class="text-on-surface font-medium flex items-center gap-1.5">
+<span class="text-primary font-semibold">Email</span> • <span class="text-secondary font-semibold">Push Webhook</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Monitors Grid -->
+<div class="space-y-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Rotinas Customizadas</h2>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Latência Global Média: <strong class="text-primary font-medium">412ms</strong></span>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-space-md">
+<!-- Card 1: Richmond & Bay Area (Active) -->
+<div class="rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-md relative overflow-hidden transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5" id="card-monitor-1">
+<div class="space-y-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="space-y-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-container/10 text-primary font-mono-sm text-mono-sm font-semibold">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                  ACTIVE • 15 min
+                </span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">ID: AMZ-W1</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate pt-1">Amazon Warehouse — Richmond &amp; Bay Area</h3>
+</div>
+<div class="p-1.5 rounded-lg bg-surface-container-high text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+</div>
+</div>
+<!-- Location & Radius -->
+<div class="space-y-1.5 bg-surface-container rounded-lg p-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">my_location</span>
+                Raio Operacional
+              </span>
+<span class="font-mono-data text-mono-data text-on-surface font-semibold">Richmond, CA + 25 mi</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-medium">Cidades:</strong> Richmond, San Pablo, Pinole, Hercules, El Cerrito
+            </div>
+</div>
+<!-- Mapped Warehouses & Keywords -->
+<div class="space-y-2">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Fulfillment Centers</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">OAK4</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">OAK6</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">DSF8</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">SF05</span>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Palavras-chave Ativas</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Warehouse Associate</span>
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Fulfillment</span>
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Package Handler</span>
+</div>
+</div>
+</div>
+<!-- Status Metrics -->
+<div class="rounded-lg bg-surface-container-lowest p-space-sm space-y-1.5">
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Encontradas Hoje</span>
+<span class="text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                9 vagas ativas
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-sm text-mono-sm text-on-surface-variant">
+<span>Última: <strong class="text-on-surface">há 2 min</strong></span>
+<span>Próxima: <strong class="text-secondary font-medium">em 13 min</strong></span>
+</div>
+</div>
+</div>
+<!-- Controls -->
+<div class="pt-space-md mt-space-md grid grid-cols-4 gap-space-xs">
+<button class="btn-toggle-run py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" title="Pausar monitoramento" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">pause</span>
+<span>Pausar</span>
+</button>
+<button class="btn-force-sync py-1.5 px-2 rounded-lg bg-primary-container/20 hover:bg-primary-container/30 text-primary text-center flex items-center justify-center gap-1 font-body-sm text-body-sm font-semibold transition-colors" title="Forçar varredura agora" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Varredura</span>
+</button>
+<button class="py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar</span>
+</button>
+<button class="py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Logs</span>
+</button>
+</div>
+</div>
+<!-- Card 2: East Bay Delivery Stations (Active) -->
+<div class="rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-md relative overflow-hidden transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5" id="card-monitor-2">
+<div class="space-y-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="space-y-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-container/10 text-primary font-mono-sm text-mono-sm font-semibold">
+<span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                  ACTIVE • 30 min
+                </span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">ID: AMZ-D2</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate pt-1">East Bay Delivery Stations</h3>
+</div>
+<div class="p-1.5 rounded-lg bg-surface-container-high text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+</div>
+<!-- Location & Radius -->
+<div class="space-y-1.5 bg-surface-container rounded-lg p-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">my_location</span>
+                Raio Operacional
+              </span>
+<span class="font-mono-data text-mono-data text-on-surface font-semibold">San Pablo &amp; Pinole + 15 mi</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-medium">Estações:</strong> Delivery Station hubs com turnos madrugada e tarde
+            </div>
+</div>
+<!-- Mapped Warehouses & Keywords -->
+<div class="space-y-2">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Centros de Distribuição</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">DSF8</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">DF02</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">DFX3</span>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Palavras-chave Ativas</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Delivery Station Associate</span>
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Morning Sort</span>
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface">Cycle 1</span>
+</div>
+</div>
+</div>
+<!-- Status Metrics -->
+<div class="rounded-lg bg-surface-container-lowest p-space-sm space-y-1.5">
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Encontradas Hoje</span>
+<span class="text-secondary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                3 vagas ativas
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-sm text-mono-sm text-on-surface-variant">
+<span>Última: <strong class="text-on-surface">há 15 min</strong></span>
+<span>Próxima: <strong class="text-secondary font-medium">em 15 min</strong></span>
+</div>
+</div>
+</div>
+<!-- Controls -->
+<div class="pt-space-md mt-space-md grid grid-cols-4 gap-space-xs">
+<button class="btn-toggle-run py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" title="Pausar monitoramento" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">pause</span>
+<span>Pausar</span>
+</button>
+<button class="btn-force-sync py-1.5 px-2 rounded-lg bg-primary-container/20 hover:bg-primary-container/30 text-primary text-center flex items-center justify-center gap-1 font-body-sm text-body-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Varredura</span>
+</button>
+<button class="py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar</span>
+</button>
+<button class="py-1.5 px-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-center flex items-center justify-center gap-1 font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Logs</span>
+</button>
+</div>
+</div>
+<!-- Card 3: South Bay & Peninsula (Paused/Draft) -->
+<div class="rounded-xl bg-surface-container-low/70 p-space-lg flex flex-col justify-between shadow-md relative overflow-hidden transition-all duration-200 hover:shadow-xl" id="card-monitor-3">
+<div class="space-y-space-md opacity-90">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="space-y-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-mono-sm text-mono-sm font-semibold">
+<span class="h-1.5 w-1.5 rounded-full bg-tertiary"></span>
+                  PAUSED • Inativo
+                </span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">ID: AMZ-SB3</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate pt-1">South Bay &amp; Peninsula Expansão (Rascunho)</h3>
+</div>
+<div class="p-1.5 rounded-lg bg-surface-container-high text-tertiary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">pause_presentation</span>
+</div>
+</div>
+<!-- Location & Radius -->
+<div class="space-y-1.5 bg-surface-container rounded-lg p-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">location_off</span>
+                Raio Operacional
+              </span>
+<span class="font-mono-data text-mono-data text-on-surface font-semibold">Hayward &amp; Fremont (35 mi)</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-medium">Configuração:</strong> Preparado para alertas em regime de alta demanda
+            </div>
+</div>
+<!-- Mapped Warehouses & Keywords -->
+<div class="space-y-2">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Centros Planejados</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">OAK5</span>
+<span class="font-mono-data text-mono-data px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-medium">SJC7</span>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-outline block mb-1">Filtros Pré-configurados</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Sortation Associate</span>
+<span class="font-body-sm text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Seasonal Full-Time</span>
+</div>
+</div>
+</div>
+<!-- Status Metrics -->
+<div class="rounded-lg bg-surface-container-lowest p-space-sm space-y-1.5">
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Status da Fila</span>
+<span class="text-tertiary font-medium">Parado temporariamente</span>
+</div>
+<div class="flex items-center justify-between font-mono-sm text-mono-sm text-on-surface-variant">
+<span>Última execução: <strong class="text-on-surface">ontem às 18:22</strong></span>
+<span>Zero custos de proxy</span>
+</div>
+</div>
+</div>
+<!-- Controls -->
+<div class="pt-space-md mt-space-md grid grid-cols-2 gap-space-sm">
+<button class="btn-resume-run py-1.5 px-3 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed-dim text-center flex items-center justify-center gap-1 font-body-sm text-body-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Retomar Monitoramento</span>
+</button>
+<button class="py-1.5 px-3 rounded-lg bg-error-container/20 hover:bg-error-container/40 text-error text-center flex items-center justify-center gap-1 font-body-sm text-body-sm font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>Excluir</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Execution History & Scraping Health Check -->
+<div class="space-y-space-md pt-space-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Histórico de Execuções &amp; Scraping Health Check</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Logs de requisições headless, validação anti-bot e tempos de resposta do portal Amazon Jobs.</p>
+</div>
+<div class="flex items-center gap-space-xs font-mono-sm text-mono-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high text-primary">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+          Residencial Proxies: 100% OK
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high text-secondary">
+          DNS Resolver: 1.1.1.1 (8ms)
+        </span>
+</div>
+</div>
+<!-- Telemetry Table Card -->
+<div class="overflow-hidden rounded-xl bg-surface-container-low shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono-data text-mono-data border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-outline uppercase font-label-caps text-label-caps">
+<th class="py-3 px-space-md">Horário</th>
+<th class="py-3 px-space-md">Rotina / Target</th>
+<th class="py-3 px-space-md">Resultado</th>
+<th class="py-3 px-space-md">HTTP Status</th>
+<th class="py-3 px-space-md">Latência</th>
+<th class="py-3 px-space-md text-right">Diagnóstico</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3.5 px-space-md text-on-surface font-semibold">21:40:12</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span class="text-on-surface font-medium">Richmond &amp; Bay Area</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 text-on-surface font-medium">
+                  12 vagas encontradas
+                  <span class="px-1.5 py-0.2 rounded bg-primary-container/20 text-primary text-mono-sm font-semibold">+3 novas</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-sm text-mono-sm text-primary font-bold">200 OK</span>
+</td>
+<td class="py-3.5 px-space-md text-primary font-semibold">382ms</td>
+<td class="py-3.5 px-space-md text-right">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">Digest enviado via Telegram</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest/30 hover:bg-surface-container transition-colors">
+<td class="py-3.5 px-space-md text-on-surface font-semibold">21:25:08</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span class="text-on-surface font-medium">Richmond &amp; Bay Area</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                9 vagas encontradas <span class="text-outline text-mono-sm">(0 novas)</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-sm text-mono-sm text-primary font-bold">200 OK</span>
+</td>
+<td class="py-3.5 px-space-md text-primary font-semibold">410ms</td>
+<td class="py-3.5 px-space-md text-right">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">Cache delta mantido</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3.5 px-space-md text-on-surface font-semibold">21:10:44</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-secondary"></span>
+<span class="text-on-surface font-medium">East Bay Delivery</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 text-on-surface font-medium">
+                  3 vagas encontradas
+                  <span class="px-1.5 py-0.2 rounded bg-secondary-container/20 text-secondary text-mono-sm font-semibold">+1 nova</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-sm text-mono-sm text-primary font-bold">200 OK</span>
+</td>
+<td class="py-3.5 px-space-md text-secondary font-semibold">445ms</td>
+<td class="py-3.5 px-space-md text-right">
+<span class="font-mono-sm text-mono-sm text-secondary bg-secondary-container/15 px-2 py-0.5 rounded">Push Webhook disparado</span>
+</td>
+</tr>
+<!-- Row 4 (Warning Resolved) -->
+<tr class="bg-surface-container-lowest/30 hover:bg-surface-container transition-colors">
+<td class="py-3.5 px-space-md text-on-surface font-semibold">20:55:02</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-tertiary"></span>
+<span class="text-on-surface font-medium">Auto-Recovery System</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-tertiary font-medium">
+                Alerta de latência mitigado (&gt;900ms)
+              </td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-sm text-mono-sm text-tertiary font-bold">302 REDIR</span>
+</td>
+<td class="py-3.5 px-space-md text-tertiary font-semibold">912ms</td>
+<td class="py-3.5 px-space-md text-right">
+<span class="font-mono-sm text-mono-sm text-primary bg-primary-container/10 px-2 py-0.5 rounded font-medium">Proxy rotacionado com sucesso</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Create Search Modal (Inline Interactive overlay) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-md bg-background/80 backdrop-blur-sm" id="newSearchModal">
+<div class="bg-surface-container-low max-w-xl w-full rounded-xl p-space-lg shadow-2xl space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="space-y-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Configurar Nova Rotina de Busca</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">A telemetria do JobWatch monitorará os nós selecionados a cada ciclo.</p>
+</div>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" id="closeModalBtn" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="space-y-space-sm font-body-md text-body-md">
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-outline mb-1">Nome da Busca</label>
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline/50 font-body-md" placeholder="ex: South San Francisco Fulfillment" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-outline mb-1">Localização Base</label>
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline/50 font-body-md" placeholder="San Francisco, CA" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-outline mb-1">Raio (Milhas)</label>
+<select class="w-full bg-surface-container-lowest text-on-surface px-space-md py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary font-body-md">
+<option>10 milhas</option>
+<option selected="">25 milhas</option>
+<option>50 milhas</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-outline mb-1">Intervalo de Polling</label>
+<div class="grid grid-cols-3 gap-2 font-mono-sm text-mono-sm">
+<label class="flex items-center justify-center p-2 rounded bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="mr-1.5 text-primary" name="freq" type="radio"/> 15 min
+            </label>
+<label class="flex items-center justify-center p-2 rounded bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors">
+<input class="mr-1.5 text-primary" name="freq" type="radio"/> 30 min
+            </label>
+<label class="flex items-center justify-center p-2 rounded bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors">
+<input class="mr-1.5 text-primary" name="freq" type="radio"/> 60 min
+            </label>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex justify-end gap-space-sm">
+<button class="px-space-md py-2 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-body-sm text-body-sm" id="cancelModalBtn" type="button">
+          Cancelar
+        </button>
+<button class="px-space-md py-2 rounded-xl bg-primary text-on-primary hover:bg-primary-fixed-dim transition-all font-body-sm text-body-sm font-semibold shadow-[0_0_15px_-3px_rgba(78,222,163,0.3)]" id="saveSearchBtn" type="button">
+          Ativar Varredura
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Modal toggle behavior
+    const openBtn = document.getElementById('openNewSearchModal');
+    const modal = document.getElementById('newSearchModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelModalBtn');
+    const saveBtn = document.getElementById('saveSearchBtn');
+
+    if (openBtn && modal) {
+      openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+    }
+    const closeModal = () => modal && modal.classList.add('hidden');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        saveBtn.innerText = 'Iniciando Daemon...';
+        setTimeout(() => {
+          closeModal();
+          saveBtn.innerText = 'Ativar Varredura';
+        }, 600);
+      });
+    }
+
+    // Force Sync micro-interaction
+    const syncButtons = document.querySelectorAll('.btn-force-sync');
+    syncButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          btn.classList.add('opacity-75');
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+            btn.classList.remove('opacity-75');
+          }, 1200);
+        }
+      });
+    });
+
+    // Toggle Pause/Play on single cards
+    const toggleBtns = document.querySelectorAll('.btn-toggle-run');
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.querySelector('span:not(.material-symbols-outlined)');
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (label && icon) {
+          if (label.innerText === 'Pausar') {
+            label.innerText = 'Retomar';
+            icon.innerText = 'play_arrow';
+            icon.className = 'material-symbols-outlined text-[16px] text-primary';
+          } else {
+            label.innerText = 'Pausar';
+            icon.innerText = 'pause';
+            icon.className = 'material-symbols-outlined text-[16px] text-tertiary';
+          }
+        }
+      });
+    });
+
+    // Pause all toggle
+    const pauseAllBtn = document.getElementById('toggleAllBtn');
+    if (pauseAllBtn) {
+      pauseAllBtn.addEventListener('click', () => {
+        const span = pauseAllBtn.querySelector('span:not(.material-symbols-outlined)');
+        if (span.innerText.includes('Pausar')) {
+          span.innerText = 'Retomar Todas as Buscas';
+          pauseAllBtn.querySelector('.material-symbols-outlined').innerText = 'play_circle';
+        } else {
+          span.innerText = 'Pausar Todas as Buscas';
+          pauseAllBtn.querySelector('.material-symbols-outlined').innerText = 'pause_circle';
+        }
+      });
+    }
+  })();
+</script></main></div></body></html>

@@ -10,6 +10,7 @@ interface ExecuteSearchJobData {
 
 @Processor(MONITORING_QUEUE, {
   concurrency: Number(process.env.MONITORING_CONCURRENCY) || 3,
+  lockDuration: 240_000,
 })
 export class MonitoringProcessor extends WorkerHost {
   private readonly logger = new Logger(MonitoringProcessor.name);
