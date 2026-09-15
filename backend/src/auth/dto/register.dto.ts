@@ -19,7 +19,9 @@ export class RegisterDto {
   @ApiProperty({ example: '+5585987149385' })
   @Transform(({ value }) => (typeof value === 'string' ? normalizePhone(value) : value))
   @IsString()
-  @Matches(PHONE_E164_REGEX, { message: 'Informe um telefone válido com DDD' })
+  @Matches(PHONE_E164_REGEX, {
+    message: 'Informe um WhatsApp válido com DDI (ex.: +5585987149385 ou +15105551234)',
+  })
   phone: string;
 
   @ApiProperty({ example: 'strong-password-123' })

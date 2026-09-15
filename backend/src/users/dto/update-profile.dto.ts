@@ -15,7 +15,9 @@ export class UpdateProfileDto {
   @IsOptional()
   @Transform(({ value }) => (typeof value === 'string' ? normalizePhone(value) : value))
   @IsString()
-  @Matches(PHONE_E164_REGEX, { message: 'Informe um telefone válido com DDD' })
+  @Matches(PHONE_E164_REGEX, {
+    message: 'Informe um WhatsApp válido com DDI (ex.: +5585987149385 ou +15105551234)',
+  })
   phone?: string;
 
   @ApiPropertyOptional({ example: 'America/Los_Angeles' })
